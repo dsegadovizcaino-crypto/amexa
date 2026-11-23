@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Get started · Amexa</title>
+<meta name="description" content="Upload your medical software documentation to Amexa. Free MDR diagnosis, SaMD packages and monthly or annual plans.">
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/png" href="img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --papel:#FFFFFF;--papel-2:#F5F8FA;--tinta:#0A2730;--suave:#4E6770;--linea:#DCE5E9;
+  --azul:#1C8CC4;--noche:#083C48;
+  --serif:"Newsreader",Georgia,"Times New Roman",serif;--sans:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--papel-2);color:var(--tinta);font:16px/1.6 var(--sans);-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3{font-family:var(--serif);font-weight:400;letter-spacing:-.015em;text-wrap:balance;margin:0}
+h1{font-size:clamp(36px,5vw,56px);line-height:1.05}
+h2{font-size:24px;line-height:1.2}
+p{margin:0}
+.env{max-width:920px;margin:0 auto;padding:0 max(5vw,18px)}
+.cab{background:#fff;border-bottom:1px solid var(--linea)}
+.cab .env{display:flex;align-items:center;justify-content:space-between;height:68px;max-width:1240px}
+.cab img{height:26px;width:auto}
+.cab a.volver{font-size:14px;color:var(--suave);text-decoration:none}
+.boton{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:46px;padding:0 20px;border-radius:8px;font:600 15px/1 var(--sans);text-decoration:none;border:0;cursor:pointer}
+.b-negro{background:var(--tinta);color:#fff}
+.b-azul{background:var(--azul);color:#fff}
+.cabecera{padding:56px 0 28px}
+.cabecera p{color:var(--suave);font-size:17px;margin-top:14px;max-width:640px}
+.aviso{display:none;margin-top:22px;padding:14px 16px;border-radius:10px;background:#E6F3FA;border:1px solid #BFE0F1;font-size:15px}
+.aviso.visible{display:block}
+.paso{background:#fff;border:1px solid var(--linea);border-radius:12px;padding:28px;margin-bottom:16px}
+.paso .num{font:600 13px/1 var(--sans);color:var(--azul)}
+.paso h2{margin-top:8px}
+.paso .ayuda{color:var(--suave);font-size:15px;margin-top:6px}
+.opciones{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:18px}
+.opcion{display:flex;gap:12px;align-items:flex-start;border:1px solid var(--linea);border-radius:10px;padding:14px;cursor:pointer;background:#fff}
+.opcion:has(input:checked){border-color:var(--azul);box-shadow:0 0 0 1px var(--azul);background:#F3FAFD}
+.opcion input{margin-top:4px;accent-color:var(--azul)}
+.opcion strong{display:block;font-size:15px}
+.opcion span{display:block;font-size:13.5px;color:var(--suave)}
+.terminos{list-style:none;padding:0;margin:16px 0 0;display:grid;gap:10px;font-size:15px}
+.terminos li{display:flex;gap:10px}
+.terminos svg{flex:none;width:18px;height:18px;color:var(--azul);margin-top:3px}
+.acepto{display:flex;gap:12px;align-items:flex-start;margin-top:20px;padding:14px;border-radius:10px;background:var(--papel-2);font-size:15px;cursor:pointer}
+.acepto input{margin-top:4px;width:18px;height:18px;accent-color:var(--azul)}
+.bloqueado{padding:22px;border:1px dashed var(--linea);border-radius:10px;color:var(--suave);font-size:15px;margin-top:18px;text-align:center}
+.zona-form{margin-top:18px}
+.zona-form iframe{width:100%;border:0;min-height:520px}
+.correo-alt{margin-top:18px;padding:20px;border-radius:10px;background:var(--papel-2);font-size:15px}
+.correo-alt .boton{margin-top:14px}
+.pie{padding:32px 0 56px;font-size:13.5px;color:var(--suave);text-align:center}
+.pie a{color:var(--tinta)}
+[hidden]{display:none!important}
+@media (max-width:640px){.opciones{grid-template-columns:minmax(0,1fr)}.paso{padding:22px 18px}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
+<header class="cab">
+  <div class="env">
+    <a href="index.html" aria-label="Amexa, home"><img src="img/amexa-logo@2x.png" alt="Amexa" width="1200" height="314"></a>
+    <a class="volver" href="index.html#pricing">← Back to plans</a>
+  </div>
+</header>
+
+<main class="env">
+  <div class="cabecera">
+    <h1>Upload your documents.</h1>
+    <p>Three short steps. Amexa does the heavy reading and our regulatory professional reviews every result before it reaches you.</p>
+    <div class="aviso" id="pagado" role="status"><strong>Payment received. Thank you.</strong> Now upload your documents so we can start. You will also receive a receipt from Stripe by email.</div>
+  </div>
+
+  <section class="paso" aria-labelledby="p1">
+    <div class="num">Step 1</div>
+    <h2 id="p1">What do you need?</h2>
+    <div class="opciones" role="radiogroup" aria-labelledby="p1">
+      <label class="opcion"><input type="radio" name="servicio" value="diagnosis"><div><strong>Free MDR diagnosis</strong><span>Class, requirements and gaps. Free, no commitment.</span></div></label>
+      <label class="opcion"><input type="radio" name="servicio" value="package-class-i"><div><strong>Class I SaMD package</strong><span>Technical file. We send a quote after reviewing your documents.</span></div></label>
+      <label class="opcion"><input type="radio" name="servicio" value="package-class-iia"><div><strong>Class IIa SaMD package</strong><span>Technical file. We send a quote after reviewing your documents.</span></div></label>
+      <label class="opcion"><input type="radio" name="servicio" value="plan"><div><strong>Monthly or annual plan</strong><span>Already paid, or want to start a plan.</span></div></label>
+    </div>
+  </section>
+
+  <section class="paso" aria-labelledby="p2">
+    <div class="num">Step 2</div>
+    <h2 id="p2">Before you upload</h2>
+    <ul class="terminos">
+      <li><svg><use href="#check"/></svg>We use your documents only to prepare your result, and we never share them.</li>
+      <li><svg><use href="#check"/></svg>Your files are stored in the EU and are not used to train AI models.</li>
+      <li><svg><use href="#check"/></svg>We delete your documents within 90 days of delivering your result.</li>
+      <li><svg><use href="#check"/></svg>Please remove any patient data. We don't need it.</li>
+    </ul>
+    <label class="acepto"><input type="checkbox" id="acepto"><span>I accept the <a href="legal.html#confidentiality" target="_blank" rel="noopener">confidentiality terms</a>, the <a href="legal.html#terms" target="_blank" rel="noopener">terms of service</a> and the <a href="legal.html#privacy" target="_blank" rel="noopener">privacy policy</a>.</span></label>
+  </section>
+
+  <section class="paso" aria-labelledby="p3">
+    <div class="num">Step 3</div>
+    <h2 id="p3">Upload your files</h2>
+    <p class="ayuda">Product description, intended purpose, architecture, tests, instructions for use, risk management: whatever you already have. PDF or Word, up to 10 MB per file.</p>
+    <div class="bloqueado" id="bloqueado">Choose what you need and accept the terms to see the upload form.</div>
+    <div class="zona-form" id="zona-form" hidden></div>
+  </section>
+</main>
+
+<footer class="pie">
+  © 2026 Amexa · <a href="legal.html">Terms and privacy</a> · <a href="mailto:dsegadovizcaino@gmail.com">dsegadovizcaino@gmail.com</a>
+</footer>
+
+<script src="config.js"></script>
+<script>
+{
+  const cfg = window.AMEXA || {};
+  const params = new URLSearchParams(location.search);
+  const pedido = params.get('service') || '';
+  const radios = [...document.querySelectorAll('input[name="servicio"]')];
+  const acepto = document.getElementById('acepto');
+  const bloqueado = document.getElementById('bloqueado');
+  const zona = document.getElementById('zona-form');
+
+  if (params.get('paid') === '1') document.getElementById('pagado').classList.add('visible');
+
+  const inicial = pedido.startsWith('plan-') ? 'plan' : pedido;
+  const marcado = radios.find((r) => r.value === inicial);
+  if (marcado) marcado.checked = true;
+  if (pedido.startsWith('plan-')) {
+    const [, plan, periodo] = pedido.split('-');
+    const nombres = {essential: 'Essential', growth: 'Growth', audit: 'Audit Ready'};
+    const info = document.querySelector('input[value="plan"]').closest('label').querySelector('span');
+    if (nombres[plan]) info.textContent = nombres[plan] + ' plan, ' + (periodo === 'annual' ? 'annual' : 'monthly') + '.';
+  }
+
+  const servicioActual = () => {
+    const r = radios.find((x) => x.checked);
+    if (!r) return '';
+    return r.value === 'plan' && pedido.startsWith('plan-') ? pedido : r.value;
+  };
+
+  let pintado = '';
+  const actualizar = () => {
+    const servicio = servicioActual();
+    const listo = servicio && acepto.checked;
+    bloqueado.hidden = listo;
+    zona.hidden = !listo;
+    if (!listo) return;
+    const clave = servicio + '|' + (params.get('paid') === '1');
+    if (clave === pintado) return;
+    pintado = clave;
+    zona.textContent = '';
+    if (cfg.tallyFormId) {
+      const q = new URLSearchParams({alignLeft: '1', hideTitle: '1', transparentBackground: '1', dynamicHeight: '1', service: servicio, paid: params.get('paid') === '1' ? 'yes' : 'no', terms: 'accepted'});
+      const f = document.createElement('iframe');
+      const url = 'https://tally.so/embed/' + encodeURIComponent(cfg.tallyFormId) + '?' + q.toString();
+      f.setAttribute('data-tally-src', url);
+      f.src = url;
+      f.title = 'Upload your documents';
+      f.loading = 'lazy';
+      zona.appendChild(f);
+      if (!document.getElementById('tally-js')) {
+        const s = document.createElement('script');
+        s.id = 'tally-js'; s.src = 'https://tally.so/widgets/embed.js'; s.async = true;
+        s.onload = () => window.Tally && window.Tally.loadEmbeds();
+        document.body.appendChild(s);
+      } else if (window.Tally) window.Tally.loadEmbeds();
+    } else {
+      const caja = document.createElement('div');
+      caja.className = 'correo-alt';
+      const t = document.createElement('p');
+      t.textContent = 'Our upload form is being set up. Meanwhile, send your documents by email and we will confirm receipt the same day.';
+      const a = document.createElement('a');
+      a.className = 'boton b-azul';
+      a.textContent = 'Send my documents by email';
+      const asunto = 'Amexa - ' + servicio;
+      const cuerpo = 'Hi,\n\nI accept the Amexa confidentiality terms, terms of service and privacy policy.\n\nService: ' + servicio + '\nCompany: \nWhat the software does: \n\nDocuments attached.';
+      a.href = 'mailto:' + (cfg.email || '') + '?subject=' + encodeURIComponent(asunto) + '&body=' + encodeURIComponent(cuerpo);
+      caja.append(t, a);
+      zona.appendChild(caja);
+    }
+  };
+  radios.forEach((r) => r.addEventListener('change', actualizar));
+  acepto.addEventListener('change', actualizar);
+  actualizar();
+}
+</script>
+</body>
+</html>

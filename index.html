@@ -1,26 +1,26 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Amexa · Diagnóstico MDR para software sanitario</title>
-<meta name="description" content="Amexa analiza la documentación de tu software sanitario y te dice si es producto sanitario, qué clase de riesgo tiene y qué te falta para el marcado CE, con cada respuesta citada de tus propios documentos.">
+<title>Amexa · MDR diagnosis for medical software</title>
+<meta name="description" content="Amexa reads your medical software documentation and tells you whether it is a medical device, its risk class and what is missing for CE marking. Reviewed by a regulatory professional. Free trials, SaMD packages for Class I and IIa, and monthly or annual plans.">
 <link rel="icon" type="image/png" href="img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
 <style>
 /*
-VOICE: sobrio y seguro, como un despacho que trabaja para empresas reguladas; frases cortas que entiende un fundador.
+VOICE: calm and confident, like a firm that works for regulated companies; short sentences a founder understands.
 IDEA: el expediente técnico que vuelve revisado, convertido en un panel con su clase, sus requisitos y sus carencias.
 PICTURE: el panel real del diagnóstico de un producto de prueba, con sus gráficos, sobre un fondo de textura azul petróleo.
 COLOUR and TYPE: papel cálido #F6F5F1, tinta casi negra, petróleo #083C48 y el azul #1C8CC4 de la "m" del logo; titulares en Newsreader, texto en Inter.
 LAYOUT: portada a lo Harvey, franja de fuentes normativas, bloques problema → solución alternos, pestañas de producto, banda oscura de cifras, seguridad en filas y cierre.
 */
 :root{
-  --papel:#F6F5F1;--papel-2:#EEECE6;--blanco:#fff;--tinta:#111618;--suave:#5C6569;--linea:#DEDBD3;
-  --petroleo:#083C48;--azul:#1C8CC4;--azul-claro:#E3F1F8;--noche:#0C1315;--noche-2:#151E21;
-  --ambar:#C98A12;--rojo:#C2483D;--verde:#2F7D57;--gris-barra:#C8D3D6;
+  --papel:#FFFFFF;--papel-2:#F5F8FA;--blanco:#fff;--tinta:#0A2730;--suave:#4E6770;--linea:#DCE5E9;
+  --petroleo:#083C48;--azul:#1C8CC4;--azul-claro:#1C8CC4;--noche:#083C48;--noche-2:#0A4655;
+  --ambar:#1C8CC4;--rojo:#083C48;--verde:#1C8CC4;--gris-barra:#D6E0E4;
   --serif:"Newsreader",Georgia,"Times New Roman",serif;--sans:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
 }
 *{box-sizing:border-box;min-width:0}
@@ -45,7 +45,7 @@ p{margin:0}
 .flecha{width:16px;height:16px}
 
 /* Cabecera */
-.cab{position:sticky;top:0;z-index:30;background:rgba(246,245,241,.88);backdrop-filter:blur(12px);border-bottom:1px solid transparent;transition:border-color .2s}
+.cab{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid transparent;transition:border-color .2s}
 .cab.linea{border-color:var(--linea)}
 .cab .env{display:flex;align-items:center;justify-content:space-between;gap:20px;height:68px}
 .cab .logo img{height:26px;width:auto}
@@ -64,64 +64,63 @@ p{margin:0}
 .lienzo{margin-top:clamp(40px,5vw,72px);border-radius:6px;padding:clamp(14px,3.6vw,56px);position:relative;overflow:hidden;
   background:
    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E"),
-   radial-gradient(55% 70% at 18% 25%,rgba(160,206,222,.75),transparent 70%),
-   radial-gradient(45% 60% at 88% 18%,rgba(28,140,196,.55),transparent 70%),
-   radial-gradient(70% 80% at 60% 100%,rgba(4,30,37,.9),transparent 75%),
-   linear-gradient(160deg,#5f8a93,#2c5761 45%,#0d2a31)}
+   radial-gradient(60% 80% at 15% 15%,rgba(28,140,196,.95),transparent 70%),
+   radial-gradient(60% 80% at 95% 100%,rgba(4,36,44,.95),transparent 75%),
+   linear-gradient(150deg,#1C8CC4,#0F5E7E 45%,#083C48)}
 .pie-lienzo{color:rgba(255,255,255,.85);font-size:13px;margin-top:14px}
 
 /* Panel del producto */
 .app{background:#fff;border-radius:10px;box-shadow:0 40px 90px -30px rgba(0,0,0,.55);display:grid;grid-template-columns:210px minmax(0,1fr);overflow:hidden;color:var(--tinta);font-size:13px}
-.app-lado{background:#FAFAF8;border-right:1px solid #ECEAE4;padding:16px 12px}
+.app-lado{background:#F7FAFB;border-right:1px solid #E3EAED;padding:16px 12px}
 .app-lado img{height:18px;width:auto;margin:4px 8px 18px}
-.app-lado .grupo{font-size:11px;color:#8A9295;margin:14px 8px 6px;font-weight:600}
-.app-lado span{display:flex;align-items:center;gap:8px;padding:7px 8px;border-radius:6px;color:#3E474A}
+.app-lado .grupo{font-size:11px;color:#6F878F;margin:14px 8px 6px;font-weight:600}
+.app-lado span{display:flex;align-items:center;gap:8px;padding:7px 8px;border-radius:6px;color:#2C4650}
 .app-lado span.on{background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.08);color:var(--tinta);font-weight:600}
-.app-lado i{width:6px;height:6px;border-radius:50%;background:#B9C2C5}
+.app-lado i{width:6px;height:6px;border-radius:50%;background:#B7C7CD}
 .app-lado .on i{background:var(--azul)}
 .app-main{padding:18px clamp(14px,2vw,24px) 22px}
 .app-top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px}
 .app-top h4{margin:0;font:400 22px/1.1 var(--serif)}
-.app-top small{display:block;color:#7A8387;font-size:12px;margin-top:4px}
+.app-top small{display:block;color:#5E7880;font-size:12px;margin-top:4px}
 .chips{display:flex;gap:6px;flex-wrap:wrap}
-.chip{display:inline-flex;align-items:center;gap:6px;padding:4px 9px;border-radius:999px;font-size:11.5px;font-weight:600;white-space:nowrap;border:1px solid #E4E1DA;background:#fff}
-.chip.ok{background:#E7F3EC;border-color:#CFE6D9;color:var(--verde)}
-.chip.alta{background:#FBEAE8;border-color:#F2D3CF;color:var(--rojo)}
-.chip.media{background:#FCF1DC;border-color:#F1DEB5;color:#8B5E0A}
-.chip.baja{background:#EEF1F2;border-color:#DFE4E6;color:#56636A}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:4px 9px;border-radius:999px;font-size:11.5px;font-weight:600;white-space:nowrap;border:1px solid #D9E3E7;background:#fff}
+.chip.ok{background:#1C8CC4;border-color:#1C8CC4;color:#fff}
+.chip.alta{background:#083C48;border-color:#083C48;color:#fff}
+.chip.media{background:#1C8CC4;border-color:#1C8CC4;color:#fff}
+.chip.baja{background:#fff;border-color:#C9D6DB;color:#083C48}
 .kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:10px}
-.kpi{border:1px solid #ECEAE4;border-radius:8px;padding:12px 14px}
+.kpi{border:1px solid #E3EAED;border-radius:8px;padding:12px 14px}
 .kpi b{display:block;font:400 32px/1 var(--serif);margin-top:6px}
-.kpi span{color:#7A8387;font-size:12px}
+.kpi span{color:#5E7880;font-size:12px}
 .paneles{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:10px}
-.panel{border:1px solid #ECEAE4;border-radius:8px;padding:14px}
+.panel{border:1px solid #E3EAED;border-radius:8px;padding:14px}
 .panel h5{margin:0 0 2px;font-size:13px}
-.panel .nota-p{color:#7A8387;font-size:11.5px;margin-bottom:12px}
+.panel .nota-p{color:#5E7880;font-size:11.5px;margin-bottom:12px}
 .apilada{display:grid;gap:10px}
 .apilada .f{display:grid;grid-template-columns:86px minmax(0,1fr) 32px;align-items:center;gap:10px;font-size:12px}
-.apilada .barra{display:flex;height:14px;border-radius:3px;overflow:hidden;background:#F1F0EC}
+.apilada .barra{display:flex;height:14px;border-radius:3px;overflow:hidden;background:#EEF3F5}
 .apilada .barra b{height:100%}
-.apilada em{font-style:normal;color:#7A8387;text-align:right}
-.leyenda{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:12px;font-size:11.5px;color:#5C6569}
+.apilada em{font-style:normal;color:#5E7880;text-align:right}
+.leyenda{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:12px;font-size:11.5px;color:#4E6770}
 .leyenda span{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
 .leyenda i{width:9px;height:9px;border-radius:2px}
-.columnas{display:flex;align-items:flex-end;gap:12px;height:132px;padding-top:6px;border-bottom:1px solid #ECEAE4}
+.columnas{display:flex;align-items:flex-end;gap:12px;height:132px;padding-top:6px;border-bottom:1px solid #E3EAED}
 .columnas div{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;gap:6px}
 .columnas b{display:block;width:100%;max-width:46px;border-radius:3px 3px 0 0;background:linear-gradient(180deg,#2E9CD3,#147AAF)}
-.columnas small{font-size:11px;color:#5C6569}
+.columnas small{font-size:11px;color:#4E6770}
 .ejes{display:flex;gap:12px;margin-top:6px}
-.ejes span{flex:1;text-align:center;font-size:11px;color:#7A8387}
-.carencias{margin-top:10px;border:1px solid #ECEAE4;border-radius:8px;overflow:hidden}
-.carencias div{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:12px;align-items:center;padding:9px 14px;border-top:1px solid #ECEAE4}
-.carencias div:first-child{border-top:0;background:#FAFAF8;color:#7A8387;font-size:11.5px;font-weight:600}
-.carencias .esf{color:#7A8387;font-size:11.5px;width:70px;text-align:right}
+.ejes span{flex:1;text-align:center;font-size:11px;color:#5E7880}
+.carencias{margin-top:10px;border:1px solid #E3EAED;border-radius:8px;overflow:hidden}
+.carencias div{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:12px;align-items:center;padding:9px 14px;border-top:1px solid #E3EAED}
+.carencias div:first-child{border-top:0;background:#F7FAFB;color:#5E7880;font-size:11.5px;font-weight:600}
+.carencias .esf{color:#5E7880;font-size:11.5px;width:70px;text-align:right}
 
 /* Franja de fuentes */
 .fuentes{padding:clamp(56px,7vw,96px) 0 clamp(40px,5vw,72px);text-align:center}
 .fuentes h2{font-size:clamp(24px,2.6vw,32px)}
 .fuentes p.sub{color:var(--suave);margin-top:10px;font-size:15px}
 .normas{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--linea);border:1px solid var(--linea);margin-top:36px;border-radius:4px;overflow:hidden}
-.normas div{background:var(--papel);padding:22px 14px;color:#6E777B;font:500 14px/1.35 var(--sans)}
+.normas div{background:var(--papel);padding:22px 14px;color:#4E6770;font:500 14px/1.35 var(--sans)}
 .normas b{display:block;font:400 19px/1.2 var(--serif);color:var(--tinta);margin-bottom:4px}
 
 /* Problema → solución */
@@ -133,7 +132,7 @@ p{margin:0}
 .ps.inversa .ps-texto{order:2}
 .num{font:400 15px/1 var(--serif);color:var(--suave);margin-bottom:18px}
 .problema-txt{margin-top:14px;color:var(--suave);font-size:16px}
-.dato{margin-top:20px;padding:14px 16px;border-left:3px solid var(--rojo);background:#fff;border-radius:0 6px 6px 0;font-size:14px;color:#3E474A}
+.dato{margin-top:20px;padding:14px 16px;border-left:3px solid var(--azul);background:#fff;box-shadow:0 1px 0 var(--linea);border-radius:0 6px 6px 0;font-size:14px;color:#2C4650}
 .dato a{color:var(--suave);font-size:12px;display:inline-block;margin-top:4px}
 .solucion{margin-top:24px;padding-top:22px;border-top:1px dashed var(--linea)}
 .solucion .rot{display:inline-flex;align-items:center;gap:8px;font:600 12px/1 var(--sans);color:var(--azul);letter-spacing:.03em;margin-bottom:10px}
@@ -144,33 +143,33 @@ p{margin:0}
 .tarjeta{background:#fff;border:1px solid var(--linea);border-radius:10px;padding:clamp(18px,2.4vw,28px);box-shadow:0 20px 50px -30px rgba(0,0,0,.25)}
 .tarjeta-osc{background:var(--noche);border-color:var(--noche);color:#fff}
 .tarjeta h5{margin:0;font-size:13px;font-weight:600}
-.tarjeta .sub5{color:#7A8387;font-size:12px;margin:2px 0 16px}
+.tarjeta .sub5{color:#5E7880;font-size:12px;margin:2px 0 16px}
 .tarjeta-osc .sub5{color:#8FA3A9}
 
 /* Árbol de cualificación */
 .arbol{display:grid;gap:8px;counter-reset:p}
-.arbol div{display:grid;grid-template-columns:28px minmax(0,1fr) auto;gap:12px;align-items:center;padding:10px 12px;border:1px solid #ECEAE4;border-radius:8px;font-size:13.5px}
-.arbol div::before{counter-increment:p;content:counter(p);display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--azul-claro);color:var(--azul);font-weight:700;font-size:12px}
+.arbol div{display:grid;grid-template-columns:28px minmax(0,1fr) auto;gap:12px;align-items:center;padding:10px 12px;border:1px solid #E3EAED;border-radius:8px;font-size:13.5px}
+.arbol div::before{counter-increment:p;content:counter(p);display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--azul);color:#fff;font-weight:700;font-size:12px}
 .arbol .final{background:var(--petroleo);color:#fff;border-color:var(--petroleo)}
 .arbol .final::before{background:#fff;color:var(--petroleo)}
 
 /* Escalera de clases */
 .escalera{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;align-items:end;height:210px;margin-top:6px}
-.escalera div{border-radius:6px 6px 0 0;display:flex;flex-direction:column;justify-content:space-between;padding:10px;font-size:12px;background:#EEF2F3;color:#56636A;position:relative}
+.escalera div{border-radius:6px 6px 0 0;display:flex;flex-direction:column;justify-content:space-between;padding:10px;font-size:12px;background:#fff;border:1px solid var(--linea);border-bottom:0;color:#4E6770;position:relative}
 .escalera div strong{font:400 30px/1 var(--serif);color:var(--tinta)}
-.escalera .alt{background:repeating-linear-gradient(135deg,#E3F1F8,#E3F1F8 6px,#fff 6px,#fff 12px);border:1.5px dashed var(--azul);color:var(--petroleo)}
-.escalera .sel{background:var(--petroleo);color:#CFE3E9}
+.escalera .alt{background:#fff;border:2px dashed var(--azul);border-bottom:0;color:var(--azul)}
+.escalera .sel{background:var(--azul);border-color:var(--azul);color:#E6F4FB}
 .escalera .sel strong{color:#fff}
-.regla{margin-top:14px;font-size:13px;color:#3E474A;background:#FAFAF8;border:1px solid #ECEAE4;border-radius:8px;padding:12px 14px}
+.regla{margin-top:14px;font-size:13px;color:#2C4650;background:#fff;border:1px solid var(--linea);border-left:3px solid var(--azul);border-radius:8px;padding:12px 14px}
 
 /* Matriz */
 .filas{display:grid;gap:10px}
-.fila-m{border:1px solid #ECEAE4;border-radius:8px;padding:12px 14px}
+.fila-m{border:1px solid #E3EAED;border-radius:8px;padding:12px 14px}
 .fila-m .cab-m{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:8px}
 .fila-m .cab-m strong{font-size:13px}
-.cita{font:400 15px/1.45 var(--serif);border-left:2px solid var(--azul);padding-left:12px;color:#2A3336}
+.cita{font:400 15px/1.45 var(--serif);border-left:2px solid var(--azul);padding-left:12px;color:#0A2730}
 .cita small{display:flex;align-items:center;gap:6px;font:500 11.5px/1.3 var(--sans);color:var(--verde);margin-top:6px}
-.falta{font-size:12.5px;color:#5C6569;margin-top:8px}
+.falta{font-size:12.5px;color:#4E6770;margin-top:8px}
 
 /* Gráfico de meses */
 .meses{display:grid;gap:14px;margin-top:6px}
@@ -184,19 +183,19 @@ p{margin:0}
 
 /* Revisión */
 .rev{display:grid;gap:8px}
-.rev div{display:grid;grid-template-columns:52px minmax(0,1fr) auto;gap:12px;align-items:center;border:1px solid #ECEAE4;border-radius:8px;padding:10px 12px;font-size:13px}
-.rev code{font:600 12px/1 var(--sans);color:#5C6569}
+.rev div{display:grid;grid-template-columns:52px minmax(0,1fr) auto;gap:12px;align-items:center;border:1px solid #E3EAED;border-radius:8px;padding:10px 12px;font-size:13px}
+.rev code{font:600 12px/1 var(--sans);color:#4E6770}
 .botones-rev{display:flex;gap:6px}
-.botones-rev span{font-size:11.5px;font-weight:600;padding:5px 9px;border-radius:6px;border:1px solid #E4E1DA;color:#5C6569}
+.botones-rev span{font-size:11.5px;font-weight:600;padding:5px 9px;border-radius:6px;border:1px solid #D9E3E7;color:#4E6770}
 .botones-rev .si{background:var(--verde);border-color:var(--verde);color:#fff}
 .ahorro{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:14px}
-.ahorro div{background:#FAFAF8;border:1px solid #ECEAE4;border-radius:8px;padding:10px 12px;font-size:12px;color:#7A8387}
+.ahorro div{background:#F7FAFB;border:1px solid #E3EAED;border-radius:8px;padding:10px 12px;font-size:12px;color:#5E7880}
 .ahorro b{display:block;font:400 22px/1.1 var(--serif);color:var(--tinta)}
 
 /* Pestañas de producto */
 .producto{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(28px,5vw,72px);align-items:start;margin-top:56px}
 .tabs{display:grid;border-top:1px solid var(--tinta)}
-.tab{all:unset;cursor:pointer;display:block;padding:18px 0;border-bottom:1px solid var(--linea);color:#7A8387;font:500 17px/1.3 var(--sans)}
+.tab{all:unset;cursor:pointer;display:block;padding:18px 0;border-bottom:1px solid var(--linea);color:#5E7880;font:500 17px/1.3 var(--sans)}
 .tab .txt{display:none;color:var(--suave);font-size:14.5px;font-weight:400;margin-top:8px;max-width:380px}
 .tab[aria-selected=true]{color:var(--tinta)}
 .tab[aria-selected=true] .txt{display:block}
@@ -205,19 +204,19 @@ p{margin:0}
 .vista>.tarjeta{width:100%}
 [hidden]{display:none!important}
 .ficha-campos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.ficha-campos div{border:1px solid #ECEAE4;border-radius:8px;padding:10px 12px;font-size:13px}
-.ficha-campos span{display:block;font-size:11.5px;color:#7A8387;margin-bottom:3px}
+.ficha-campos div{border:1px solid #E3EAED;border-radius:8px;padding:10px 12px;font-size:13px}
+.ficha-campos span{display:block;font-size:11.5px;color:#5E7880;margin-bottom:3px}
 .descargas{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.archivo{border:1px solid #ECEAE4;border-radius:8px;padding:18px;display:flex;gap:14px;align-items:center}
+.archivo{border:1px solid #E3EAED;border-radius:8px;padding:18px;display:flex;gap:14px;align-items:center}
 .archivo i{width:42px;height:50px;border-radius:4px;display:grid;place-items:center;font:700 11px/1 var(--sans);color:#fff;font-style:normal}
 .archivo strong{display:block;font-size:14px}
-.archivo span{font-size:12px;color:#7A8387}
+.archivo span{font-size:12px;color:#5E7880}
 
 /* Principio */
 .principio{background:#fff;border-top:1px solid var(--linea);border-bottom:1px solid var(--linea)}
 .principio .env{display:grid;grid-template-columns:minmax(0,.7fr) minmax(0,1.3fr);gap:clamp(28px,5vw,72px);align-items:center}
 .sello{aspect-ratio:1;max-width:340px;border-radius:6px;display:grid;place-items:center;background:
-  radial-gradient(60% 60% at 30% 30%,rgba(160,206,222,.8),transparent 70%),linear-gradient(160deg,#3f6c76,#0d2a31)}
+  radial-gradient(60% 60% at 25% 25%,rgba(28,140,196,.9),transparent 70%),linear-gradient(160deg,#1C8CC4,#083C48 70%)}
 .sello img{width:62%;height:auto;filter:drop-shadow(0 6px 18px rgba(0,0,0,.25))}
 .principio blockquote{margin:0;font:400 clamp(28px,3.4vw,44px)/1.15 var(--serif);letter-spacing:-.01em}
 .principio p{color:var(--suave);margin-top:18px;max-width:560px}
@@ -231,7 +230,7 @@ p{margin:0}
 .cifra:last-child{border-bottom:1px solid rgba(255,255,255,.12)}
 .cifra p{color:#C3D0D4;font-size:15px;max-width:380px}
 .cifra strong{font:400 clamp(48px,6vw,80px)/1 var(--serif);letter-spacing:-.02em}
-.cifra strong small{font-size:.4em;color:#7FC6EA;margin-left:8px}
+.cifra strong small{font-size:.4em;color:#6CC4EE;margin-left:8px}
 .aclaracion{color:#6F858C;font-size:12.5px;margin-top:18px}
 
 /* Seguridad */
@@ -242,7 +241,7 @@ p{margin:0}
 .lista-seg summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:34px minmax(0,1fr) auto;gap:14px;align-items:center;padding:18px 0;font-weight:500;min-height:44px}
 .lista-seg summary::-webkit-details-marker{display:none}
 .lista-seg summary svg{width:24px;height:24px;color:var(--petroleo)}
-.lista-seg summary em{font-style:normal;color:#8A9295;font-size:13px}
+.lista-seg summary em{font-style:normal;color:#6F878F;font-size:13px}
 .lista-seg details[open] summary em{color:var(--tinta)}
 .lista-seg details p{color:var(--suave);padding:0 0 18px 48px;font-size:15px}
 
@@ -273,6 +272,35 @@ p{margin:0}
 .pie .legal{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.12);padding-top:20px;color:#6F858C;font-size:12px;line-height:1.6}
 .pie .legal a{color:#8FA3A9}
 
+
+/* Services */
+.servicios{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:48px}
+.serv{border:1px solid var(--linea);border-radius:10px;padding:26px 22px;display:flex;flex-direction:column;background:#fff}
+.serv .tipo{font:600 12px/1 var(--sans);color:var(--azul);letter-spacing:.03em;margin-bottom:16px}
+.serv h3{font-size:26px}
+.serv p{color:var(--suave);font-size:14.5px;margin-top:10px}
+.serv ul{list-style:none;margin:18px 0 0;padding:16px 0 0;border-top:1px solid var(--linea);display:grid;gap:9px;font-size:14px}
+.serv li{display:flex;gap:9px}
+.serv li svg{flex:none;width:16px;height:16px;color:var(--azul);margin-top:3px}
+.serv .pie-serv{margin-top:auto;padding-top:22px;font:500 13px/1.3 var(--sans);color:var(--tinta)}
+.serv.gratis{background:var(--azul);border-color:var(--azul);color:#fff}
+.serv.gratis .tipo{color:#fff;opacity:.85}
+.serv.gratis p,.serv.gratis li{color:#EAF6FC}
+.serv.gratis ul{border-color:rgba(255,255,255,.3)}
+.serv.gratis li svg{color:#fff}
+.serv.gratis .pie-serv{color:#fff}
+.serv.susc{background:var(--noche);border-color:var(--noche);color:#fff}
+.serv.susc .tipo{color:#6CC4EE}
+.serv.susc p,.serv.susc li{color:#CFE2E8}
+.serv.susc ul{border-color:rgba(255,255,255,.18)}
+.serv.susc li svg{color:#6CC4EE}
+.serv.susc .pie-serv{color:#fff}
+.nota-serv{margin-top:20px;color:var(--suave);font-size:14px;text-align:center}
+.revisado{display:inline-flex;align-items:center;gap:10px;margin-top:18px;padding:10px 14px;border:1px solid var(--linea);border-radius:8px;font-size:14px;color:var(--tinta);background:#fff}
+.revisado svg{width:20px;height:20px;color:var(--azul);flex:none}
+@media (max-width:1020px){.servicios{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:600px){.servicios{grid-template-columns:minmax(0,1fr)}}
+
 @media (prefers-reduced-motion:no-preference){
   .js .sube{opacity:0;transform:translateY(24px);transition:opacity .9s ease,transform .9s ease}
   .js .sube.visible{opacity:1;transform:none}
@@ -280,7 +308,6 @@ p{margin:0}
 @media (max-width:1020px){
   .menu a:not(.boton){display:none}
   .portada-cab,.ps,.producto,.principio .env,.seguridad,.cierre .env{grid-template-columns:minmax(0,1fr)}
-  .portada-cab .lado{justify-self:start}
   .ps.inversa .ps-texto{order:0}
   .cierre .acciones{justify-content:flex-start}
   .normas{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -309,342 +336,551 @@ p{margin:0}
   .pie .env{grid-template-columns:repeat(2,minmax(0,1fr))}
   .lista-seg details p{padding-left:0}
 }
+.otra-clase{margin-top:10px}.otra-clase a{color:var(--azul);font-weight:600;text-decoration:underline;text-underline-offset:3px}
+
+/* Pricing */
+.precios-cab{display:flex;flex-direction:column;align-items:center;gap:22px}
+.periodo{display:inline-flex;padding:4px;border:1px solid var(--linea);border-radius:10px;background:var(--papel-2)}
+.periodo button{font:600 14px/1 var(--sans);border:0;background:transparent;color:var(--suave);padding:11px 16px;border-radius:7px;cursor:pointer}
+.periodo button[aria-pressed="true"]{background:#fff;color:var(--tinta);box-shadow:0 1px 3px rgba(8,60,72,.15)}
+.periodo button span{color:var(--azul);font-weight:600;margin-left:6px}
+.planes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:40px}
+.planp{border:1px solid var(--linea);border-radius:12px;padding:28px 24px;display:flex;flex-direction:column;background:#fff;position:relative}
+.planp .para{font:600 12px/1.3 var(--sans);color:var(--azul);letter-spacing:.03em}
+.planp h3{margin-top:10px}
+.planp .precio{margin-top:18px;display:flex;align-items:baseline;gap:6px;flex-wrap:wrap}
+.planp .precio b{font:400 46px/1 var(--serif);letter-spacing:-.02em}
+.planp .precio span{color:var(--suave);font-size:14px}
+.planp .equiv{font-size:13px;color:var(--suave);min-height:20px;margin-top:6px}
+.planp ul{list-style:none;margin:20px 0 0;padding:18px 0 0;border-top:1px solid var(--linea);display:grid;gap:10px;font-size:14.5px}
+.planp li{display:flex;gap:9px}
+.planp li svg{flex:none;width:16px;height:16px;color:var(--azul);margin-top:3px}
+.planp .boton{margin-top:26px;width:100%}
+.planp .horas{margin-top:auto;padding-top:20px;font-size:13px;color:var(--suave)}
+.planp.destacado{background:var(--noche);border-color:var(--noche);color:#fff}
+.planp.destacado .para{color:#6CC4EE}
+.planp.destacado .precio span,.planp.destacado .equiv,.planp.destacado .horas{color:#B9D3DB}
+.planp.destacado ul{border-color:rgba(255,255,255,.18)}
+.planp.destacado li{color:#DCEBF0}
+.planp.destacado li svg{color:#6CC4EE}
+.planp .sello-plan{position:absolute;top:-12px;left:24px;background:var(--azul);color:#fff;font:600 12px/1 var(--sans);padding:7px 10px;border-radius:6px}
+.b-azul{background:var(--azul);color:#fff}.b-azul:hover{background:#1679AA}
+.pasos-compra{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:56px;counter-reset:paso}
+.pasos-compra div{border-top:2px solid var(--azul);padding-top:16px}
+.pasos-compra div::before{counter-increment:paso;content:"0" counter(paso);font:600 13px/1 var(--sans);color:var(--azul)}
+.pasos-compra strong{display:block;font:400 22px/1.2 var(--serif);margin-top:10px}
+.pasos-compra p{color:var(--suave);font-size:14.5px;margin-top:8px}
+.letra-pequena{margin-top:28px;text-align:center;font-size:13.5px;color:var(--suave)}
+.letra-pequena a{color:var(--tinta)}
+.serv .enlace-serv{margin-top:14px;font:600 14px/1 var(--sans);text-decoration:none;display:inline-flex;gap:8px;align-items:center}
+.serv .enlace-serv svg{width:16px;height:16px}
+.serv .enlace-serv{color:var(--azul)}
+.serv.gratis .enlace-serv,.serv.susc .enlace-serv{color:#fff}
+@media (max-width:900px){.planes,.pasos-compra{grid-template-columns:minmax(0,1fr)}.planes{gap:28px}}
+
+/* Hero centred */
+.portada-cab{grid-template-columns:minmax(0,1fr);justify-items:center;text-align:center;gap:26px}
+.portada-cab h1{max-width:920px}
+.portada-cab .lado{max-width:680px;justify-self:center}
+.portada-cab .acciones{justify-content:center}
+/* Blue bands */
+.fuentes.azul .normas{background:rgba(255,255,255,.28);border-color:var(--azul);border-radius:10px}
+.fuentes.azul .normas div{background:var(--azul);color:#E3F2FA}
+.fuentes.azul .normas b{color:#fff}
+.principio.azul{background:var(--azul);border-color:var(--azul);color:#fff}
+.principio.azul p{color:#E3F2FA}
+.principio.azul .sello{background:var(--noche)}
+.principio.azul .revisado{background:#fff;color:var(--tinta)}
+
+.mdr{white-space:nowrap}
+.m-amexa{display:inline-block;height:.66em;width:auto;aspect-ratio:139.08/100;color:var(--azul);vertical-align:baseline;margin:0 .02em 0 .01em;overflow:visible}
+.oculto{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+
+/* Services: own section, one colour per card (light to dark, like the path a client follows) */
+.servicios-sec{background:var(--papel-2);border-top:1px solid var(--linea);border-bottom:1px solid var(--linea)}
+.serv.gratis{background:#DDEFF8;border-color:#DDEFF8;color:var(--tinta)}
+.serv.gratis .tipo{color:var(--azul);opacity:1}
+.serv.gratis p{color:var(--suave)}
+.serv.gratis li{color:var(--tinta)}
+.serv.gratis ul{border-color:#B9DDEF}
+.serv.gratis li svg,.serv.gratis .enlace-serv{color:var(--azul)}
+.serv.gratis .pie-serv{color:var(--tinta)}
+.serv.paq1{background:var(--azul);border-color:var(--azul);color:#fff}
+.serv.paq2{background:#11638C;border-color:#11638C;color:#fff}
+.serv.paq1 .tipo,.serv.paq2 .tipo{color:#fff;opacity:.85}
+.serv.paq1 p,.serv.paq1 li,.serv.paq2 p,.serv.paq2 li{color:#EAF6FC}
+.serv.paq1 ul,.serv.paq2 ul{border-color:rgba(255,255,255,.3)}
+.serv.paq1 li svg,.serv.paq2 li svg{color:#fff}
+.serv.paq1 .pie-serv,.serv.paq2 .pie-serv,.serv.paq1 .enlace-serv,.serv.paq2 .enlace-serv{color:#fff}
+
+/* Hero background: the Amexa m */
+.portada{position:relative;isolation:isolate}.portada::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 139.08 100'><path fill='%23DCEFF8' d='M131.52 99.89 L130.43 99.97 L128.12 99.54 L126.09 98.54 L124.83 97.52 L123.80 96.23 L123.25 95.30 L122.61 93.43 L122.40 91.12 L122.39 38.66 L122.30 36.71 L122.06 35.01 L121.60 32.94 L121.09 31.36 L119.72 28.24 L118.73 26.61 L117.31 24.66 L115.09 22.38 L112.66 20.41 L110.11 18.94 L108.28 18.15 L106.45 17.52 L104.26 16.97 L100.12 16.60 L95.86 16.98 L93.79 17.53 L92.21 18.05 L90.14 18.94 L87.59 20.40 L84.66 22.84 L82.39 25.39 L80.40 28.48 L78.95 31.96 L78.46 33.72 L78.02 36.10 L77.87 38.66 L77.85 91.61 L77.71 93.19 L77.18 94.89 L76.36 96.35 L75.29 97.65 L74.16 98.54 L73.22 99.08 L72.25 99.50 L71.28 99.75 L69.45 100.00 L66.84 99.52 L64.95 98.56 L63.49 97.37 L62.42 95.99 L61.96 95.13 L61.42 93.55 L61.22 91.00 L61.21 38.78 L61.09 36.83 L60.77 34.40 L60.25 32.45 L59.35 29.99 L57.83 27.10 L56.39 25.03 L54.48 22.91 L51.44 20.39 L48.90 18.94 L46.81 18.04 L45.23 17.53 L43.04 16.96 L38.90 16.60 L34.76 16.97 L32.57 17.54 L30.99 18.05 L28.92 18.95 L26.39 20.40 L24.95 21.50 L23.44 22.85 L21.62 24.81 L20.08 26.97 L18.65 29.65 L17.59 32.45 L17.13 34.28 L16.73 36.71 L16.65 38.05 L16.63 91.00 L16.47 93.43 L15.90 95.13 L15.42 95.99 L14.44 97.28 L12.97 98.54 L11.15 99.47 L8.71 99.96 L7.98 99.97 L5.63 99.52 L3.72 98.59 L2.50 97.57 L1.62 96.60 L1.16 95.87 L0.65 94.89 L0.22 93.55 L0.04 92.21 L0.03 37.69 L0.14 35.37 L0.62 31.84 L1.57 27.83 L2.63 24.80 L4.09 21.52 L6.48 17.36 L8.42 14.68 L11.50 11.27 L14.19 8.80 L18.23 5.92 L21.86 3.92 L25.07 2.51 L26.61 1.98 L28.31 1.45 L30.62 0.92 L32.69 0.53 L35.25 0.22 L39.02 0.00 L42.43 0.20 L44.86 0.50 L49.37 1.42 L53.67 2.88 L57.89 4.88 L59.59 5.88 L63.06 8.35 L66.35 11.27 L69.21 14.47 L69.45 14.58 L69.82 14.44 L72.74 11.24 L75.41 8.80 L78.70 6.39 L81.26 4.83 L85.15 2.97 L87.83 1.97 L89.78 1.39 L93.79 0.56 L96.71 0.19 L100.37 0.01 L103.90 0.23 L106.33 0.53 L108.46 0.93 L111.04 1.54 L114.87 2.88 L118.31 4.46 L121.54 6.38 L124.91 8.84 L127.51 11.24 L130.34 14.32 L132.80 17.72 L134.72 21.01 L136.22 24.30 L136.72 25.64 L137.61 28.29 L138.21 30.87 L138.87 35.25 L139.08 39.51 L139.03 92.09 L138.80 93.55 L138.24 95.26 L137.61 96.33 L136.64 97.49 L135.38 98.54 L134.32 99.14 L133.23 99.57 L131.52 99.89Z'/></svg>") no-repeat 50% 40px/min(900px,90vw) auto,linear-gradient(#F3FAFD,#fff 75%)}
 </style>
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="flecha" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="experto" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/><path d="M16 4.5l1.2 1.2L19.5 3.4"/></g></symbol>
 </svg>
 
 <header class="cab" id="cab">
   <div class="env">
-    <a class="logo" href="#" aria-label="Amexa, inicio"><img src="img/amexa-logo@2x.png" alt="Amexa" width="1200" height="314"></a>
-    <nav class="menu" aria-label="Principal">
-      <a href="#problemas">Qué resolvemos</a>
-      <a href="#producto">Producto</a>
-      <a href="#seguridad">Confidencialidad</a>
-      <a href="#preguntas">Preguntas</a>
-      <a class="boton b-negro" href="#reservar">Reservar plaza</a>
+    <a class="logo" href="#" aria-label="Amexa, home"><img src="img/amexa-logo@2x.png" alt="Amexa" width="1200" height="314"></a>
+    <nav class="menu" aria-label="Main">
+      <a href="#problems">What we solve</a>
+      <a href="#services">Services</a>
+      <a href="#product">Product</a>
+      <a href="#confidentiality">Confidentiality</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+      <a class="boton b-negro" href="start.html?service=diagnosis">Start free trial</a>
     </nav>
   </div>
 </header>
 
 <main>
-  <!-- Portada -->
+  <!-- Hero -->
   <section class="portada">
     <div class="env">
       <div class="portada-cab">
-        <h1>Tu software sanitario, listo para el MDR.</h1>
+        <h1>Your medical software, ready for the <span class="mdr"><span class="oculto">M</span><svg class="m-amexa" viewBox="0 0 139.08 100" aria-hidden="true" focusable="false"><path fill="currentColor" d="M131.52 99.89 L130.43 99.97 L128.12 99.54 L126.09 98.54 L124.83 97.52 L123.80 96.23 L123.25 95.30 L122.61 93.43 L122.40 91.12 L122.39 38.66 L122.30 36.71 L122.06 35.01 L121.60 32.94 L121.09 31.36 L119.72 28.24 L118.73 26.61 L117.31 24.66 L115.09 22.38 L112.66 20.41 L110.11 18.94 L108.28 18.15 L106.45 17.52 L104.26 16.97 L100.12 16.60 L95.86 16.98 L93.79 17.53 L92.21 18.05 L90.14 18.94 L87.59 20.40 L84.66 22.84 L82.39 25.39 L80.40 28.48 L78.95 31.96 L78.46 33.72 L78.02 36.10 L77.87 38.66 L77.85 91.61 L77.71 93.19 L77.18 94.89 L76.36 96.35 L75.29 97.65 L74.16 98.54 L73.22 99.08 L72.25 99.50 L71.28 99.75 L69.45 100.00 L66.84 99.52 L64.95 98.56 L63.49 97.37 L62.42 95.99 L61.96 95.13 L61.42 93.55 L61.22 91.00 L61.21 38.78 L61.09 36.83 L60.77 34.40 L60.25 32.45 L59.35 29.99 L57.83 27.10 L56.39 25.03 L54.48 22.91 L51.44 20.39 L48.90 18.94 L46.81 18.04 L45.23 17.53 L43.04 16.96 L38.90 16.60 L34.76 16.97 L32.57 17.54 L30.99 18.05 L28.92 18.95 L26.39 20.40 L24.95 21.50 L23.44 22.85 L21.62 24.81 L20.08 26.97 L18.65 29.65 L17.59 32.45 L17.13 34.28 L16.73 36.71 L16.65 38.05 L16.63 91.00 L16.47 93.43 L15.90 95.13 L15.42 95.99 L14.44 97.28 L12.97 98.54 L11.15 99.47 L8.71 99.96 L7.98 99.97 L5.63 99.52 L3.72 98.59 L2.50 97.57 L1.62 96.60 L1.16 95.87 L0.65 94.89 L0.22 93.55 L0.04 92.21 L0.03 37.69 L0.14 35.37 L0.62 31.84 L1.57 27.83 L2.63 24.80 L4.09 21.52 L6.48 17.36 L8.42 14.68 L11.50 11.27 L14.19 8.80 L18.23 5.92 L21.86 3.92 L25.07 2.51 L26.61 1.98 L28.31 1.45 L30.62 0.92 L32.69 0.53 L35.25 0.22 L39.02 0.00 L42.43 0.20 L44.86 0.50 L49.37 1.42 L53.67 2.88 L57.89 4.88 L59.59 5.88 L63.06 8.35 L66.35 11.27 L69.21 14.47 L69.45 14.58 L69.82 14.44 L72.74 11.24 L75.41 8.80 L78.70 6.39 L81.26 4.83 L85.15 2.97 L87.83 1.97 L89.78 1.39 L93.79 0.56 L96.71 0.19 L100.37 0.01 L103.90 0.23 L106.33 0.53 L108.46 0.93 L111.04 1.54 L114.87 2.88 L118.31 4.46 L121.54 6.38 L124.91 8.84 L127.51 11.24 L130.34 14.32 L132.80 17.72 L134.72 21.01 L136.22 24.30 L136.72 25.64 L137.61 28.29 L138.21 30.87 L138.87 35.25 L139.08 39.51 L139.03 92.09 L138.80 93.55 L138.24 95.26 L137.61 96.33 L136.64 97.49 L135.38 98.54 L134.32 99.14 L133.23 99.57 L131.52 99.89Z"/></svg>DR</span>.</h1>
         <div class="lado">
-          <p>Amexa lee la documentación de tu software y te dice si es producto sanitario, qué clase de riesgo tiene y qué te falta para el marcado CE. Cada respuesta, citada de tus propios documentos.</p>
+          <p>Amexa reads your software's technical documentation and tells you whether it is a medical device, which risk class it falls into and what is missing for CE marking. Every answer is cited from your own documents and reviewed by a regulatory professional.</p>
           <div class="acciones">
-            <a class="boton b-negro" href="#reservar">Reservar diagnóstico gratis <svg class="flecha"><use href="#flecha"/></svg></a>
-            <a class="boton b-borde" href="#problemas">Ver qué resolvemos</a>
+            <a class="boton b-negro" href="start.html?service=diagnosis">Start your free trial <svg class="flecha"><use href="#flecha"/></svg></a>
+            <a class="boton b-borde" href="#pricing">See pricing</a>
           </div>
-          <small>Primeros diagnósticos gratis y sin compromiso, desde enero de 2027.</small>
+          <small>Upload your documents online, no call needed. Free, no-commitment trials from January 2027.</small>
         </div>
       </div>
 
       <div class="lienzo sube">
-        <div class="app" role="img" aria-label="Panel de diagnóstico de LunarCheck, un producto ficticio: clase III, 118 requisitos revisados por capítulo, tiempo por etapa y carencias prioritarias.">
+        <div class="app" role="img" aria-label="Amexa dashboard for LunarCheck, a fictional test product: class III, 118 checks across the 23 Annex I requirements by chapter, time per stage and priority gaps.">
           <div class="app-lado">
             <img src="img/amexa-logo@2x.png" alt="">
-            <span><i></i>Nuevo análisis</span>
-            <div class="grupo">Productos</div>
+            <span><i></i>New analysis</span>
+            <div class="grupo">Products</div>
             <span class="on"><i></i>LunarCheck</span>
-            <span><i></i>+ Añadir producto</span>
-            <div class="grupo">Diagnóstico</div>
-            <span><i></i>Ficha del producto</span>
-            <span><i></i>Clasificación</span>
-            <span><i></i>Matriz de requisitos</span>
-            <span><i></i>Carencias</span>
-            <span><i></i>Revisión experta</span>
+            <span><i></i>+ Add product</span>
+            <div class="grupo">Diagnosis</div>
+            <span><i></i>Product profile</span>
+            <span><i></i>Classification</span>
+            <span><i></i>Requirements matrix</span>
+            <span><i></i>Gaps</span>
+            <span><i></i>Expert review</span>
           </div>
           <div class="app-main">
             <div class="app-top">
-              <div><h4>LunarCheck · Diagnóstico MDR</h4><small>App que estima el riesgo de un lunar a partir de una foto · 5 documentos</small></div>
-              <div class="chips"><span class="chip ok">Análisis completo</span><span class="chip">Español</span></div>
+              <div><h4>LunarCheck · MDR diagnosis</h4><small>App that estimates the risk of a mole from a photo · 5 documents</small></div>
+              <div class="chips"><span class="chip ok">Analysis complete</span><span class="chip">English</span></div>
             </div>
             <div class="kpis">
-              <div class="kpi"><span>Clase preliminar</span><b>III</b></div>
-              <div class="kpi"><span>Requisitos revisados</span><b>118</b></div>
-              <div class="kpi"><span>Carencias</span><b>14</b></div>
-              <div class="kpi"><span>Contradicciones</span><b>1</b></div>
+              <div class="kpi"><span>Preliminary class</span><b>III</b></div>
+              <div class="kpi"><span>Checks done</span><b>118</b></div>
+              <div class="kpi"><span>Gaps</span><b>14</b></div>
+              <div class="kpi"><span>Contradictions</span><b>1</b></div>
             </div>
             <div class="paneles">
               <div class="panel">
-                <h5>Estado por capítulo del Anexo I</h5>
-                <div class="nota-p">Número de requisitos</div>
+                <h5>Status by chapter of Annex I</h5>
+                <div class="nota-p">Number of requirements</div>
                 <div class="apilada">
-                  <div class="f"><span>I · Generales</span><div class="barra"><b style="width:66.7%;background:var(--ambar)"></b><b style="width:11.1%;background:var(--rojo)"></b><b style="width:22.2%;background:var(--gris-barra)"></b></div><em>9</em></div>
-                  <div class="f"><span>II · Diseño</span><div class="barra"><b style="width:28.3%;background:var(--ambar)"></b><b style="width:71.7%;background:var(--gris-barra)"></b></div><em>60</em></div>
-                  <div class="f"><span>III · Información</span><div class="barra"><b style="width:32.7%;background:var(--ambar)"></b><b style="width:22.4%;background:var(--rojo)"></b><b style="width:44.9%;background:var(--gris-barra)"></b></div><em>49</em></div>
+                  <div class="f"><span>I · General</span><div class="barra"><b style="width:66.7%;background:var(--ambar)"></b><b style="width:11.1%;background:var(--rojo)"></b><b style="width:22.2%;background:var(--gris-barra)"></b></div><em>9</em></div>
+                  <div class="f"><span>II · Design</span><div class="barra"><b style="width:28.3%;background:var(--ambar)"></b><b style="width:71.7%;background:var(--gris-barra)"></b></div><em>60</em></div>
+                  <div class="f"><span>III · Information</span><div class="barra"><b style="width:32.7%;background:var(--ambar)"></b><b style="width:22.4%;background:var(--rojo)"></b><b style="width:44.9%;background:var(--gris-barra)"></b></div><em>49</em></div>
                 </div>
-                <div class="leyenda"><span><i style="background:var(--ambar)"></i>Parcial 39</span><span><i style="background:var(--rojo)"></i>Falta 12</span><span><i style="background:var(--gris-barra)"></i>No aplica 67</span></div>
+                <div class="leyenda"><span><i style="background:var(--ambar)"></i>Partial 39</span><span><i style="background:var(--rojo)"></i>Missing 12</span><span><i style="background:var(--gris-barra)"></i>Not applicable 67</span></div>
               </div>
               <div class="panel">
-                <h5>Tiempo por etapa</h5>
-                <div class="nota-p">Segundos · total ≈ 7,5 min</div>
+                <h5>Time per stage</h5>
+                <div class="nota-p">Seconds · total ≈ 7.5 min</div>
                 <div class="columnas">
                   <div><small>76</small><b style="height:35%"></b></div>
                   <div><small>80</small><b style="height:37%"></b></div>
                   <div><small>216</small><b style="height:100%"></b></div>
                   <div><small>77</small><b style="height:36%"></b></div>
                 </div>
-                <div class="ejes"><span>Ficha</span><span>Clase</span><span>Matriz</span><span>Carencias</span></div>
+                <div class="ejes"><span>Profile</span><span>Class</span><span>Matrix</span><span>Gaps</span></div>
               </div>
             </div>
             <div class="carencias">
-              <div><span>Carencias prioritarias</span><span>Prioridad</span><span class="esf">Esfuerzo</span></div>
-              <div><span>Gestión de riesgos incompleta (borrador)</span><span class="chip alta">Alta</span><span class="esf">Alto</span></div>
-              <div><span>Evaluación clínica en condiciones reales de uso</span><span class="chip alta">Alta</span><span class="esf">Alto</span></div>
-              <div><span>Ciberseguridad sin análisis de amenazas</span><span class="chip alta">Alta</span><span class="esf">Medio</span></div>
+              <div><span>Priority gaps</span><span>Priority</span><span class="esf">Effort</span></div>
+              <div><span>Risk management incomplete (draft only)</span><span class="chip alta">High</span><span class="esf">High</span></div>
+              <div><span>Clinical evaluation under real conditions of use</span><span class="chip alta">High</span><span class="esf">High</span></div>
+              <div><span>Cybersecurity without threat analysis</span><span class="chip alta">High</span><span class="esf">Medium</span></div>
             </div>
           </div>
         </div>
-        <p class="pie-lienzo">Datos reales del análisis de LunarCheck, un producto ficticio que usamos para probar Amexa.</p>
+        <p class="pie-lienzo">Real data from the analysis of LunarCheck, a fictional product we use to test Amexa.</p>
       </div>
     </div>
   </section>
 
-  <!-- Fuentes normativas -->
-  <section class="fuentes">
+  <!-- Regulatory sources -->
+  <section class="fuentes azul">
     <div class="env">
-      <h2 class="sube">Construido sobre la normativa oficial europea</h2>
-      <p class="sub sube">Amexa razona con los textos oficiales, no con resúmenes de internet.</p>
+      <h2 class="sube">Built on the official EU regulations</h2>
+      <p class="sub sube">Amexa reasons with the official texts, not with summaries found online.</p>
       <div class="normas sube">
-        <div><b>MDR 2017/745</b>Reglamento europeo de productos sanitarios</div>
-        <div><b>Anexo I</b>118 requisitos de seguridad y funcionamiento</div>
-        <div><b>Anexo VIII · Regla 11</b>Clasificación del software</div>
-        <div><b>MDCG 2019-11</b>Cualificación del software sanitario</div>
-        <div><b>MDCG 2019-16</b>Ciberseguridad</div>
-        <div><b>MDCG 2020-1</b>Evaluación clínica del software</div>
-        <div><b>EUR-Lex</b>Texto consolidado, en español e inglés</div>
-        <div><b>Normas armonizadas</b>ISO 14971, IEC 62304, IEC 62366-1</div>
+        <div><b>MDR 2017/745</b>EU Medical Device Regulation</div>
+        <div><b>Annex I</b>23 general safety and performance requirements</div>
+        <div><b>Annex VIII · Rule 11</b>Software classification</div>
+        <div><b>MDCG 2019-11</b>Qualification of medical device software</div>
+        <div><b>MDCG 2019-16</b>Cybersecurity</div>
+        <div><b>MDCG 2020-1</b>Clinical evaluation of software</div>
+        <div><b>EUR-Lex</b>Consolidated text, in English and Spanish</div>
+        <div><b>Harmonised standards</b>ISO 14971, IEC 62304, IEC 62366-1</div>
       </div>
     </div>
   </section>
 
-  <!-- Problema → Solución -->
-  <section class="seccion" id="problemas" style="padding-top:clamp(40px,5vw,72px)">
+  <!-- Problem → Solution -->
+  <section class="seccion" id="problems" style="padding-top:clamp(40px,5vw,72px)">
     <div class="env">
       <div class="intro sube">
-        <span class="etiqueta">Qué resolvemos</span>
-        <h2 style="margin-top:18px">Cinco problemas que frenan a las startups de software sanitario.</h2>
-        <p>Para vender un software sanitario en Europa tienes que demostrar que cumple el Reglamento (UE) 2017/745. Así es como Amexa te ayuda en cada paso.</p>
+        <span class="etiqueta">What we solve</span>
+        <h2 style="margin-top:18px">Five problems that hold back medical software startups.</h2>
+        <p>To sell medical software in Europe you must show that it complies with Regulation (EU) 2017/745. This is how Amexa helps at every step.</p>
       </div>
 
-      <!-- 1 -->
       <article class="ps">
         <div class="ps-texto sube">
-          <div class="num">01 · Cualificación</div>
-          <h3>“No sé si mi software es producto sanitario.”</h3>
-          <p class="problema-txt">Depende de lo que prometes, no de la tecnología. La misma app puede quedar fuera del MDR o dentro según una frase de tus instrucciones. Y si tus documentos dicen cosas distintas, el organismo notificado leerá la más exigente.</p>
+          <div class="num">01 · Qualification</div>
+          <h3>“I don't know if my software is a medical device.”</h3>
+          <p class="problema-txt">It depends on what you promise, not on the technology. The same app can fall inside or outside the MDR because of one sentence in your instructions. And if your documents disagree, the notified body will read the strictest one.</p>
           <div class="solucion">
-            <div class="rot">Cómo lo resuelve Amexa</div>
-            <p>Lee todos tus documentos, extrae la ficha del producto y aplica el árbol de decisión oficial de la guía MDCG 2019-11, paso a paso.</p>
+            <div class="rot">How Amexa solves it</div>
+            <p>It reads all your documents, builds the product profile and applies the official MDCG 2019-11 decision tree, step by step.</p>
             <ul>
-              <li><svg><use href="#check"/></svg>Finalidad, usuarios, entorno, uso de IA y datos, en una ficha.</li>
-              <li><svg><use href="#check"/></svg>Avisa cuando dos documentos se contradicen.</li>
-              <li><svg><use href="#check"/></svg>Si no es producto sanitario, te da el argumento por escrito.</li>
+              <li><svg><use href="#check"/></svg>Intended purpose, users, environment, AI and data, in one profile.</li>
+              <li><svg><use href="#check"/></svg>Flags when two documents contradict each other.</li>
+              <li><svg><use href="#check"/></svg>If it is not a medical device, you get the argument in writing.</li>
             </ul>
           </div>
         </div>
         <div class="tarjeta sube">
-          <h5>Cualificación · MDCG 2019-11</h5>
-          <p class="sub5">Ejemplo: LunarCheck</p>
+          <h5>Qualification · MDCG 2019-11</h5>
+          <p class="sub5">Example: LunarCheck</p>
           <div class="arbol">
-            <div><span>¿Es software?</span><span class="chip ok">Sí</span></div>
-            <div><span>¿Es accesorio o del Anexo XVI?</span><span class="chip">No</span></div>
-            <div><span>¿Hace algo más que guardar o enviar datos?</span><span class="chip ok">Sí</span></div>
-            <div><span>¿Actúa en beneficio de cada paciente?</span><span class="chip ok">Sí</span></div>
-            <div class="final"><span>Es software sanitario independiente</span><span class="chip ok">MDR</span></div>
+            <div><span>Is it software?</span><span class="chip ok">Yes</span></div>
+            <div><span>Is it an accessory or an Annex XVI product?</span><span class="chip">No</span></div>
+            <div><span>Does it do more than store or send data?</span><span class="chip ok">Yes</span></div>
+            <div><span>Does it act for the benefit of individual patients?</span><span class="chip ok">Yes</span></div>
+            <div class="final"><span>Standalone medical device software</span><span class="chip ok">MDR</span></div>
           </div>
-          <div class="regla" style="margin-top:12px"><strong style="color:#8B5E0A">Contradicción detectada.</strong> La descripción dice que la app estima un riesgo; las instrucciones, que diagnostica el melanoma.</div>
+          <div class="regla" style="margin-top:12px"><strong style="color:var(--azul)">Contradiction found.</strong> The product description says the app estimates a risk; the instructions say it diagnoses melanoma.</div>
         </div>
       </article>
 
-      <!-- 2 -->
       <article class="ps inversa">
         <div class="ps-texto sube">
-          <div class="num">02 · Clasificación</div>
-          <h3>“No sé qué clase de riesgo tiene.”</h3>
-          <p class="problema-txt">La clase decide todo el camino: si necesitas organismo notificado, qué evidencia clínica te pedirán y cuánto tardarás. Con el MDR, el software suele subir de clase respecto a la normativa anterior.</p>
-          <div class="dato">La clasificación de software del Anexo VIII suele hacer que el software suba de clase, sobre todo cuando influye en el uso de otro producto sanitario.<br><a href="https://www.paconsulting.com/newsroom/med-device-online-were-heading-toward-a-bottleneck-for-eu-mdr-approvals-how-to-get-ahead-13-november-2024" target="_blank" rel="noopener">Fuente: PA Consulting, 2024</a></div>
+          <div class="num">02 · Classification</div>
+          <h3>“I don't know which risk class it has.”</h3>
+          <p class="problema-txt">The class decides the whole route: whether you need a notified body, what clinical evidence you will be asked for and how long it will take. Under the MDR, software tends to move up a class compared with the previous rules.</p>
+          <div class="dato">Software classification under Annex VIII typically results in software being up-classified, especially where it drives or influences the use of a medical device.<br><a href="https://www.paconsulting.com/newsroom/med-device-online-were-heading-toward-a-bottleneck-for-eu-mdr-approvals-how-to-get-ahead-13-november-2024" target="_blank" rel="noopener">Source: PA Consulting, 2024</a></div>
           <div class="solucion">
-            <div class="rot">Cómo lo resuelve Amexa</div>
-            <p>Aplica la Regla 11 del Anexo VIII y razona la clase paso a paso, con citas. Si hay una clase alternativa defendible, te dice exactamente qué tendrías que cambiar para conseguirla.</p>
+            <div class="rot">How Amexa solves it</div>
+            <p>It applies Rule 11 of Annex VIII and reasons the class step by step, with citations. If a lower class is defensible, it tells you exactly what you would have to change to get it.</p>
           </div>
         </div>
         <div class="tarjeta sube">
-          <h5>Regla 11 · Anexo VIII</h5>
-          <p class="sub5">Ejemplo: LunarCheck</p>
-          <div class="escalera" aria-label="Clases I, IIa, IIb y III; propuesta III, alternativa IIb">
-            <div style="height:44%"><strong>I</strong>Resto</div>
-            <div style="height:62%"><strong>IIa</strong>Informa decisiones</div>
-            <div class="alt" style="height:80%"><strong>IIb</strong>Alternativa</div>
-            <div class="sel" style="height:100%"><strong>III</strong>Propuesta</div>
+          <h5>Rule 11 · Annex VIII</h5>
+          <p class="sub5">Example: LunarCheck</p>
+          <div class="escalera" aria-label="Classes I, IIa, IIb and III; proposed III, alternative IIb">
+            <div style="height:44%"><strong>I</strong>Other</div>
+            <div style="height:62%"><strong>IIa</strong>Informs decisions</div>
+            <div class="alt" style="height:80%"><strong>IIb</strong>Alternative</div>
+            <div class="sel" style="height:100%"><strong>III</strong>Proposed</div>
           </div>
-          <div class="regla"><strong>Por qué III:</strong> informa decisiones de diagnóstico cuyo error puede causar la muerte o un deterioro irreversible. <strong>Podría ser IIb</strong> si la finalidad se limita en todos los documentos a orientar, sin diagnosticar.</div>
+          <div class="regla"><strong>Why III:</strong> it provides information for diagnostic decisions where an error could cause death or irreversible deterioration. <strong>It could be IIb</strong> if every document limits the intended purpose to guiding the user, without diagnosing.</div>
         </div>
       </article>
 
-      <!-- 3 -->
       <article class="ps">
         <div class="ps-texto sube">
-          <div class="num">03 · Requisitos</div>
-          <h3>“118 requisitos y cientos de páginas por leer.”</h3>
-          <p class="problema-txt">El Anexo I tiene 118 requisitos generales de seguridad y funcionamiento. Rellenar la matriz a mano, buscando la prueba de cada uno en tu documentación, lleva semanas.</p>
+          <div class="num">03 · Requirements</div>
+          <h3>“23 requirements, dozens of sub-points and hundreds of pages to read.”</h3>
+          <p class="problema-txt">Annex I sets out 23 general safety and performance requirements, many of them with several sub-points. Filling in the matrix by hand, searching your documentation for evidence of each one, takes weeks.</p>
           <div class="solucion">
-            <div class="rot">Cómo lo resuelve Amexa</div>
-            <p>Revisa los 118 uno a uno: si aplica, qué prueba hay en tus documentos y qué falta. Cada estado se apoya en una cita literal.</p>
+            <div class="rot">How Amexa solves it</div>
+            <p>It splits the 23 requirements into 118 checks and reviews them one by one: whether it applies, what evidence your documents contain and what is missing. Every status rests on a verbatim quote.</p>
             <ul>
-              <li><svg><use href="#check"/></svg>Cada cita se comprueba palabra por palabra contra tu documento.</li>
-              <li><svg><use href="#check"/></svg>Si una cita no aparece tal cual, se descarta y se avisa.</li>
-              <li><svg><use href="#check"/></svg>Sin prueba no hay «cumple».</li>
+              <li><svg><use href="#check"/></svg>Every quote is checked word for word against your document.</li>
+              <li><svg><use href="#check"/></svg>A quote that does not appear exactly is discarded and flagged.</li>
+              <li><svg><use href="#check"/></svg>No evidence, no “compliant”.</li>
             </ul>
           </div>
         </div>
         <div class="tarjeta sube">
-          <h5>Matriz de requisitos · Anexo I</h5>
-          <p class="sub5">Dos filas reales del ejemplo LunarCheck</p>
+          <h5>Requirements matrix · Annex I</h5>
+          <p class="sub5">Two real rows from the LunarCheck test (translated from Spanish)</p>
           <div class="filas">
             <div class="fila-m">
-              <div class="cab-m"><strong>GSPR 17.2 · Ciclo de vida del software</strong><span class="chip media">Parcial</span></div>
-              <div class="cita">«El código se gestiona en Git con revisión obligatoria por otro desarrollador. Las pruebas unitarias cubren el 62 % del código del servidor.»<small><svg width="13" height="13"><use href="#check"/></svg>Verificada · 02_arquitectura.docx, apartado 4</small></div>
-              <p class="falta"><strong>Falta:</strong> plan de desarrollo, clase de seguridad del software y procesos de cambios documentados.</p>
+              <div class="cab-m"><strong>GSPR 17.2 · Software life cycle</strong><span class="chip media">Partial</span></div>
+              <div class="cita">“The code is managed in Git with mandatory review by another developer. Unit tests cover 62% of the server code.”<small><svg width="13" height="13"><use href="#check"/></svg>Verified · 02_architecture.docx, section 4</small></div>
+              <p class="falta"><strong>Missing:</strong> software development plan, software safety class and documented change processes.</p>
             </div>
             <div class="fila-m">
-              <div class="cab-m"><strong>GSPR 23.2.h · Identificación única (UDI)</strong><span class="chip alta">Falta</span></div>
-              <p class="falta" style="margin-top:0">No hay ninguna referencia a la UDI en la documentación. <strong>Qué hacer:</strong> asignarla con una entidad emisora y mostrarla en la pantalla «Acerca de».</p>
+              <div class="cab-m"><strong>GSPR 23.2.h · Unique device identification (UDI)</strong><span class="chip alta">Missing</span></div>
+              <p class="falta" style="margin-top:0">The documentation never mentions a UDI. <strong>What to do:</strong> obtain one from an issuing entity and show it on the “About” screen.</p>
             </div>
           </div>
         </div>
       </article>
 
-      <!-- 4 -->
       <article class="ps inversa">
         <div class="ps-texto sube">
-          <div class="num">04 · Carencias</div>
-          <h3>“Descubro lo que falta cuando ya es tarde.”</h3>
-          <p class="problema-txt">La evaluación del organismo notificado ya es larga. Y si llegas con el expediente incompleto, te pueden rechazar la solicitud y la espera vuelve a empezar.</p>
-          <div class="dato">La documentación incompleta al presentar la solicitud puede llevar a su rechazo, y la espera empieza de nuevo.<br><a href="https://matrixone.health/blog/navigating-the-european-union-s-medical-device-regulation-mdr-challenges-and-crucial-aspects-for-manufacturers" target="_blank" rel="noopener">Fuente: Matrix One, guía MDR para fabricantes</a></div>
+          <div class="num">04 · Gaps</div>
+          <h3>“I find out what is missing when it is too late.”</h3>
+          <p class="problema-txt">The notified body assessment is already long. If you arrive with an incomplete file, your application can be refused and the wait starts all over again.</p>
+          <div class="dato">Incomplete documentation at the time of application will lead to refusal of the application, which means the waiting time starts again.<br><a href="https://matrixone.health/blog/navigating-the-european-union-s-medical-device-regulation-mdr-challenges-and-crucial-aspects-for-manufacturers" target="_blank" rel="noopener">Source: Matrix One, MDR guide for manufacturers</a></div>
           <div class="solucion">
-            <div class="rot">Cómo lo resuelve Amexa</div>
-            <p>Convierte la matriz en un plan: qué falta, por qué importa, qué documento lo cierra y cuánto esfuerzo lleva, ordenado por prioridad. Lo ves desde el primer día, no al final.</p>
+            <div class="rot">How Amexa solves it</div>
+            <p>It turns the matrix into a plan: what is missing, why it matters, which document closes it and how much effort it takes, ordered by priority. You see it on day one, not at the end.</p>
           </div>
         </div>
         <div class="tarjeta tarjeta-osc sube">
-          <h5>Tiempo medio de evaluación por un organismo notificado</h5>
-          <p class="sub5">Fabricantes de productos sanitarios, en meses</p>
+          <h5>Average notified body assessment time</h5>
+          <p class="sub5">Medical device manufacturers, in months</p>
           <div class="meses">
-            <div class="f"><span>Sistema de calidad (QMS)</span><div class="pista"><b style="width:89%">19,5</b></div></div>
-            <div class="f"><span>Documentación técnica</span><div class="pista"><b style="width:100%">21,8</b></div></div>
+            <div class="f"><span>Quality management system</span><div class="pista"><b style="width:89%">19.5</b></div></div>
+            <div class="f"><span>Technical documentation</span><div class="pista"><b style="width:100%">21.8</b></div></div>
           </div>
-          <p class="meses-fuente">Fuente: <a href="https://www.medtecheurope.org/wp-content/uploads/2025/01/mte_report_ivdr_mdr_2024-v7.pdf" target="_blank" rel="noopener">MedTech Europe, encuesta sobre MDR e IVDR, 2024</a></p>
+          <p class="meses-fuente">Source: <a href="https://www.medtecheurope.org/wp-content/uploads/2025/01/mte_report_ivdr_mdr_2024-v7.pdf" target="_blank" rel="noopener">MedTech Europe, MDR and IVDR survey, 2024</a></p>
           <div class="plan">
-            <div><span>Plan de gestión de riesgos</span><span class="chip alta">Alta</span></div>
-            <div><span>Plan e informe de evaluación clínica</span><span class="chip alta">Alta</span></div>
-            <div><span>Instrucciones de uso revisadas</span><span class="chip media">Media</span></div>
-            <div><span>Etiqueta electrónica y UDI</span><span class="chip baja">Baja</span></div>
+            <div><span>Risk management plan</span><span class="chip alta">High</span></div>
+            <div><span>Clinical evaluation plan and report</span><span class="chip alta">High</span></div>
+            <div><span>Revised instructions for use</span><span class="chip media">Medium</span></div>
+            <div><span>Electronic label and UDI</span><span class="chip baja">Low</span></div>
           </div>
         </div>
       </article>
 
-      <!-- 5 -->
       <article class="ps">
         <div class="ps-texto sube">
-          <div class="num">05 · Revisión experta</div>
-          <h3>“Mi consultor empieza siempre desde cero.”</h3>
-          <p class="problema-txt">Antes de aportar su criterio, un experto regulatorio tiene que leer todo tu expediente. Ese tiempo lo pagas tú.</p>
+          <div class="num">05 · Expert review</div>
+          <h3>“I need more than a draft: I need someone who knows the MDR.”</h3>
+          <p class="problema-txt">An AI-generated report is not enough to make regulatory decisions. And a traditional consultant has to read your whole file before adding any judgement, which you pay for.</p>
           <div class="solucion">
-            <div class="rot">Cómo lo resuelve Amexa</div>
-            <p>Le entrega el trabajo hecho: un borrador con fuentes que acepta, corrige o rechaza fila a fila. La clasificación final siempre la confirma un profesional cualificado, con su motivo.</p>
+            <div class="rot">How Amexa solves it</div>
+            <p>Amexa does the reading and the first pass. Then a regulatory affairs professional with more than 7 years of experience in the medical device industry reviews every row: accepts it, corrects it or rejects it, and confirms the class with a written reason.</p>
             <ul>
-              <li><svg><use href="#check"/></svg>Enlace personal para el revisor, sin cuenta y con caducidad.</li>
-              <li><svg><use href="#check"/></svg>Lo que no se ha revisado aparece como pendiente.</li>
+              <li><svg><use href="#check"/></svg>You receive a reviewed diagnosis, not a raw AI draft.</li>
+              <li><svg><use href="#check"/></svg>Anything not yet reviewed is clearly marked as pending.</li>
             </ul>
           </div>
         </div>
         <div class="tarjeta sube">
-          <h5>Revisión experta</h5>
-          <p class="sub5">Así revisa cada fila tu especialista</p>
+          <h5>Expert review</h5>
+          <p class="sub5">How our specialist reviews each row</p>
           <div class="rev">
-            <div><code>5</code><span>Errores de uso con usuarios no sanitarios</span><span class="botones-rev"><span class="si">Aceptar</span><span>Corregir</span><span>Rechazar</span></span></div>
-            <div><code>8</code><span>Beneficio frente a riesgo</span><span class="botones-rev"><span>Aceptar</span><span class="si">Corregir</span><span>Rechazar</span></span></div>
-            <div><code>22.3</code><span>Aviso de resultado no válido</span><span class="botones-rev"><span class="si">Aceptar</span><span>Corregir</span><span>Rechazar</span></span></div>
+            <div><code>5</code><span>Use errors by lay users</span><span class="botones-rev"><span class="si">Accept</span><span>Correct</span><span>Reject</span></span></div>
+            <div><code>8</code><span>Benefit versus risk</span><span class="botones-rev"><span>Accept</span><span class="si">Correct</span><span>Reject</span></span></div>
+            <div><code>22.3</code><span>Invalid result warning</span><span class="botones-rev"><span class="si">Accept</span><span>Correct</span><span>Reject</span></span></div>
           </div>
           <div class="ahorro">
-            <div><b>Aceptadas</b>sin cambios</div>
-            <div><b>Corregidas</b>con motivo</div>
-            <div><b>Pendientes</b>a la vista</div>
+            <div><b>Accepted</b>unchanged</div>
+            <div><b>Corrected</b>with a reason</div>
+            <div><b>Pending</b>clearly shown</div>
           </div>
         </div>
       </article>
     </div>
   </section>
 
-  <!-- Producto por pestañas -->
-  <section class="seccion" id="producto" style="background:#fff;border-top:1px solid var(--linea)">
+  <!-- Services -->
+  <section class="seccion servicios-sec" id="services">
+    <div class="env">
+      <div class="intro sube">
+        <span class="etiqueta">Services</span>
+        <h2 style="margin-top:18px">From the first diagnosis to the full technical file.</h2>
+        <p>Start with a free trial. Then choose a SaMD package for your technical file, or work with us every month.</p>
+      </div>
+      <div class="servicios">
+        <article class="serv gratis sube">
+          <div class="tipo">Free trial</div>
+          <h3>MDR diagnosis</h3>
+          <p>We analyse your documentation for free and with no commitment, so you can judge the quality before you pay anything.</p>
+          <ul>
+            <li><svg><use href="#check"/></svg>Qualification and risk class, from I to III</li>
+            <li><svg><use href="#check"/></svg>All 23 MDR safety requirements, checked point by point</li>
+            <li><svg><use href="#check"/></svg>Prioritised gap plan</li>
+            <li><svg><use href="#check"/></svg>15-minute review call</li>
+          </ul>
+          <div class="pie-serv">Free · no commitment</div>
+          <a class="enlace-serv" href="start.html?service=diagnosis">Upload your documents <svg><use href="#flecha"/></svg></a>
+        </article>
+        <article class="serv paq1 sube">
+          <div class="tipo">SaMD package</div>
+          <h3>Class I SaMD package</h3>
+          <p>Preparation of the MDR technical documentation for class I software, built from your documents and reviewed by our regulatory professional.</p>
+          <ul>
+            <li><svg><use href="#check"/></svg>Annex II and III documentation</li>
+            <li><svg><use href="#check"/></svg>GSPR checklist with evidence</li>
+            <li><svg><use href="#check"/></svg>Editable Word and Excel files</li>
+          </ul>
+          <div class="pie-serv">Quote after we review your documents</div>
+          <a class="enlace-serv" href="start.html?service=package-class-i">Get your quote <svg><use href="#flecha"/></svg></a>
+        </article>
+        <article class="serv paq2 sube">
+          <div class="tipo">SaMD package</div>
+          <h3>Class IIa SaMD package</h3>
+          <p>For software that needs a notified body. We prepare the documentation the assessment will ask for, so you apply with a complete file.</p>
+          <ul>
+            <li><svg><use href="#check"/></svg>Everything in the Class I package</li>
+            <li><svg><use href="#check"/></svg>Rule 11 classification rationale</li>
+            <li><svg><use href="#check"/></svg>Gap plan for notified body review</li>
+          </ul>
+          <div class="pie-serv">Quote after we review your documents</div>
+          <a class="enlace-serv" href="start.html?service=package-class-iia">Get your quote <svg><use href="#flecha"/></svg></a>
+        </article>
+        <article class="serv susc sube">
+          <div class="tipo">Subscription</div>
+          <h3>Monthly or annual plan</h3>
+          <p>Ongoing regulatory support while your product grows. Hire us monthly or save with an annual plan.</p>
+          <ul>
+            <li><svg><use href="#check"/></svg>Review of every new version or feature</li>
+            <li><svg><use href="#check"/></svg>Technical file kept up to date</li>
+            <li><svg><use href="#check"/></svg>Gap tracking until they are closed</li>
+          </ul>
+          <div class="pie-serv">From €490 a month</div>
+          <a class="enlace-serv" href="#pricing">See the plans <svg><use href="#flecha"/></svg></a>
+        </article>
+      </div>
+      <p class="nota-serv sube">Every deliverable is reviewed by a regulatory affairs professional with more than 7 years of experience in the medical device industry.</p>
+      <p class="nota-serv otra-clase sube">Working on a Class IIb or III device? <a href="mailto:dsegadovizcaino@gmail.com?subject=Amexa%20-%20Class%20IIb%20or%20III%20device">Talk to us</a>. The diagnosis already covers every class.</p>
+    </div>
+  </section>
+
+
+  <!-- Pricing -->
+  <section class="seccion" id="pricing" style="background:#fff">
+    <div class="env">
+      <div class="intro sube precios-cab">
+        <span class="etiqueta">Pricing</span>
+        <h2>Plans that keep your file up to date.</h2>
+        <p style="margin-top:0">Your software changes every month. Your technical file has to change with it. Choose a plan, pay online and upload your documents. No call needed.</p>
+        <div class="periodo" role="group" aria-label="Billing period">
+          <button type="button" data-periodo="monthly" aria-pressed="true">Monthly</button>
+          <button type="button" data-periodo="annual" aria-pressed="false">Annual<span>2 months free</span></button>
+        </div>
+      </div>
+      <div class="planes">
+        <article class="planp sube">
+          <div class="para">For Class I software or early-stage teams</div>
+          <h3>Essential</h3>
+          <div class="precio"><b data-mensual="€490" data-anual="€4,900">€490</b><span data-mensual="per month" data-anual="per year">per month</span></div>
+          <div class="equiv" data-mensual="Billed monthly · cancel anytime" data-anual="€408 a month, billed yearly"></div>
+          <a class="boton b-negro" data-plan="essential" href="start.html?service=plan-essential-monthly">Choose Essential</a>
+          <ul>
+            <li><svg><use href="#check"/></svg>Review of 1 new version or change a month</li>
+            <li><svg><use href="#check"/></svg>Gap tracking until each gap is closed</li>
+            <li><svg><use href="#check"/></svg>Updated requirements matrix every month</li>
+            <li><svg><use href="#check"/></svg>Answers by email within 3 working days</li>
+          </ul>
+          <div class="horas">About 2 hours of expert review a month</div>
+        </article>
+        <article class="planp destacado sube">
+          <span class="sello-plan">Built for Class IIa</span>
+          <div class="para">For teams that already have their technical file</div>
+          <h3>Growth</h3>
+          <div class="precio"><b data-mensual="€990" data-anual="€9,900">€990</b><span data-mensual="per month" data-anual="per year">per month</span></div>
+          <div class="equiv" data-mensual="Billed monthly · cancel anytime" data-anual="€825 a month, billed yearly"></div>
+          <a class="boton b-azul" data-plan="growth" href="start.html?service=plan-growth-monthly">Choose Growth</a>
+          <ul>
+            <li><svg><use href="#check"/></svg>Review of up to 3 versions or changes a month</li>
+            <li><svg><use href="#check"/></svg>Technical file kept up to date</li>
+            <li><svg><use href="#check"/></svg>Gap tracking and updated matrix</li>
+            <li><svg><use href="#check"/></svg>One 30-minute call a month</li>
+          </ul>
+          <div class="horas">About 4 hours of expert review a month</div>
+        </article>
+        <article class="planp sube">
+          <div class="para">For Class IIa teams heading to the notified body</div>
+          <h3>Audit Ready</h3>
+          <div class="precio"><b data-mensual="€1,900" data-anual="€19,000">€1,900</b><span data-mensual="per month" data-anual="per year">per month</span></div>
+          <div class="equiv" data-mensual="Billed monthly · cancel anytime" data-anual="€1,583 a month, billed yearly"></div>
+          <a class="boton b-negro" data-plan="audit" href="start.html?service=plan-audit-monthly">Choose Audit Ready</a>
+          <ul>
+            <li><svg><use href="#check"/></svg>Everything in Growth</li>
+            <li><svg><use href="#check"/></svg>Preparation for the notified body review</li>
+            <li><svg><use href="#check"/></svg>Help answering the auditor's questions</li>
+            <li><svg><use href="#check"/></svg>Post-market surveillance documents</li>
+          </ul>
+          <div class="horas">About 8 hours of expert review a month</div>
+        </article>
+      </div>
+      <div class="pasos-compra sube">
+        <div><strong>Choose and pay online</strong><p>Pay by card through Stripe, a secure payment platform. We never see your card details.</p></div>
+        <div><strong>Upload your documents</strong><p>Accept our confidentiality terms and upload your files from the same page. Nothing else to sign.</p></div>
+        <div><strong>Receive the reviewed result</strong><p>Amexa does the heavy reading and our regulatory professional reviews every result before it reaches you.</p></div>
+      </div>
+      <p class="letra-pequena sube">Prices exclude VAT. Monthly plans can be cancelled at any time and end with the month already paid. Annual plans are paid upfront for 12 months. <a href="legal.html#terms">Full terms</a></p>
+    </div>
+  </section>
+
+  <!-- Product tabs -->
+  <section class="seccion" id="product" style="background:#fff;border-top:1px solid var(--linea)">
     <div class="env">
       <div class="sube" style="max-width:640px">
-        <span class="etiqueta">Producto</span>
-        <h2 style="margin-top:18px">Lo que recibes en cada diagnóstico.</h2>
+        <span class="etiqueta">Product</span>
+        <h2 style="margin-top:18px">What you receive in every diagnosis.</h2>
       </div>
       <div class="producto">
-        <div class="tabs" role="tablist" aria-label="Partes del diagnóstico">
-          <button class="tab" role="tab" id="t-ficha" aria-controls="v-ficha" aria-selected="true">Ficha del producto<span class="txt">Qué hace tu software, para quién, dónde se usa, si lleva IA y qué datos maneja. Cada dato con su cita.</span></button>
-          <button class="tab" role="tab" id="t-clase" aria-controls="v-clase" aria-selected="false" tabindex="-1">Clase de riesgo<span class="txt">La clase preliminar según la Regla 11, razonada paso a paso, con la alternativa y lo que cambiaría.</span></button>
-          <button class="tab" role="tab" id="t-matriz" aria-controls="v-matriz" aria-selected="false" tabindex="-1">Matriz de 118 requisitos<span class="txt">Para cada requisito: si aplica, la evidencia, el estado, la confianza y las normas relacionadas.</span></button>
-          <button class="tab" role="tab" id="t-plan" aria-controls="v-plan" aria-selected="false" tabindex="-1">Plan de carencias<span class="txt">Lo que falta, por prioridad, con el entregable que lo cierra y el esfuerzo estimado.</span></button>
-          <button class="tab" role="tab" id="t-desc" aria-controls="v-desc" aria-selected="false" tabindex="-1">Excel y Word<span class="txt">Te lo llevas en archivos editables, en español o en inglés, para tu equipo y tu experto.</span></button>
+        <div class="tabs" role="tablist" aria-label="Parts of the diagnosis">
+          <button class="tab" role="tab" id="t-ficha" aria-controls="v-ficha" aria-selected="true">Product profile<span class="txt">What your software does, for whom, where it is used, whether it uses AI and what data it handles. Every fact with its citation.</span></button>
+          <button class="tab" role="tab" id="t-clase" aria-controls="v-clase" aria-selected="false" tabindex="-1">Risk class<span class="txt">The preliminary class under Rule 11, reasoned step by step, with the alternative and what would change it.</span></button>
+          <button class="tab" role="tab" id="t-matriz" aria-controls="v-matriz" aria-selected="false" tabindex="-1">Requirements matrix<span class="txt">The 23 Annex I requirements split into 118 checks. For each one: whether it applies, the evidence, the status, the confidence and the related standards.</span></button>
+          <button class="tab" role="tab" id="t-plan" aria-controls="v-plan" aria-selected="false" tabindex="-1">Gap plan<span class="txt">What is missing, by priority, with the deliverable that closes it and the estimated effort.</span></button>
+          <button class="tab" role="tab" id="t-desc" aria-controls="v-desc" aria-selected="false" tabindex="-1">Excel and Word<span class="txt">Editable files in English or Spanish, for your team and your expert.</span></button>
         </div>
         <div class="vista sube">
           <div class="tarjeta" role="tabpanel" id="v-ficha" aria-labelledby="t-ficha">
-            <h5>Ficha del producto · LunarCheck</h5><p class="sub5">Extraída de 5 documentos</p>
+            <h5>Product profile · LunarCheck</h5><p class="sub5">Extracted from 5 documents</p>
             <div class="ficha-campos">
-              <div><span>Fabricante</span>DermApp Ficticia, S.L. (Madrid)</div>
-              <div><span>Versión</span>1.4.0</div>
-              <div><span>Usuarios previstos</span>Adultos sin formación sanitaria</div>
-              <div><span>Plataforma</span>App móvil con servidor en la nube</div>
-              <div><span>Uso de IA</span>Red neuronal que analiza la foto</div>
-              <div><span>Decisión que informa</span>Si consultar al médico y con qué urgencia</div>
+              <div><span>Manufacturer</span>DermApp Ficticia, S.L. (Madrid)</div>
+              <div><span>Version</span>1.4.0</div>
+              <div><span>Intended users</span>Adults without medical training</div>
+              <div><span>Platform</span>Mobile app with a cloud server</div>
+              <div><span>Use of AI</span>Neural network that analyses the photo</div>
+              <div><span>Decision it informs</span>Whether to see a doctor, and how urgently</div>
             </div>
-            <div class="regla" style="margin-top:12px"><strong style="color:#8B5E0A">1 contradicción:</strong> finalidad de «estimar el riesgo» frente a «diagnosticar el melanoma».</div>
+            <div class="regla" style="margin-top:12px"><strong style="color:var(--azul)">1 contradiction:</strong> intended purpose “estimates the risk” versus “diagnoses melanoma”.</div>
           </div>
           <div class="tarjeta" role="tabpanel" id="v-clase" aria-labelledby="t-clase" hidden>
-            <h5>Clasificación · Regla 11</h5><p class="sub5">Confianza media · la decisión final es del experto</p>
+            <h5>Classification · Rule 11</h5><p class="sub5">Medium confidence · confirmed by our regulatory professional</p>
             <div class="kpis" style="grid-template-columns:repeat(2,minmax(0,1fr))">
-              <div class="kpi"><span>Clase propuesta</span><b>III</b></div>
-              <div class="kpi"><span>Alternativa defendible</span><b>IIb</b></div>
+              <div class="kpi"><span>Proposed class</span><b>III</b></div>
+              <div class="kpi"><span>Defensible alternative</span><b>IIb</b></div>
             </div>
-            <div class="regla"><strong>Condición para IIb:</strong> eliminar de las instrucciones y del material promocional que la IA «diagnostica el melanoma» y limitar la finalidad, en todos los documentos, a orientar sobre si consultar y con qué urgencia.</div>
+            <div class="regla"><strong>Condition for IIb:</strong> remove from the instructions and all promotional material the claim that the AI “diagnoses melanoma”, and limit the intended purpose, in every document, to guiding whether and how urgently to see a doctor.</div>
           </div>
           <div class="tarjeta" role="tabpanel" id="v-matriz" aria-labelledby="t-matriz" hidden>
-            <h5>Matriz de requisitos</h5><p class="sub5">118 filas · 39 parciales · 12 faltan · 67 no aplican</p>
+            <h5>Requirements matrix</h5><p class="sub5">23 requirements · 118 checks · 39 partial · 12 missing · 67 not applicable</p>
             <div class="fila-m">
-              <div class="cab-m"><strong>GSPR 5 · Errores de uso</strong><span class="chip media">Parcial · confianza media</span></div>
-              <div class="cita">«Personas adultas sin formación sanitaria, que usan la aplicación por su cuenta.»<small><svg width="13" height="13"><use href="#check"/></svg>Verificada · 01_descripcion_producto.pdf, pág. 1</small></div>
-              <p class="falta"><strong>Falta:</strong> proceso de ingeniería de usabilidad con análisis de errores de uso previsibles (IEC 62366-1).</p>
+              <div class="cab-m"><strong>GSPR 5 · Use errors</strong><span class="chip media">Partial · medium confidence</span></div>
+              <div class="cita">“Adults without medical training who use the app on their own.”<small><svg width="13" height="13"><use href="#check"/></svg>Verified · 01_product_description.pdf, p. 1</small></div>
+              <p class="falta"><strong>Missing:</strong> a usability engineering process that analyses foreseeable use errors (IEC 62366-1).</p>
             </div>
           </div>
           <div class="tarjeta" role="tabpanel" id="v-plan" aria-labelledby="t-plan" hidden>
-            <h5>Plan de carencias</h5><p class="sub5">14 carencias · 4 de prioridad alta</p>
+            <h5>Gap plan</h5><p class="sub5">14 gaps · 4 high priority</p>
             <div class="carencias" style="margin-top:0">
-              <div><span>Entregable</span><span>Prioridad</span><span class="esf">Esfuerzo</span></div>
-              <div><span>Plan de gestión de riesgos (ISO 14971)</span><span class="chip alta">Alta</span><span class="esf">Alto</span></div>
-              <div><span>Plan e informe de evaluación clínica</span><span class="chip alta">Alta</span><span class="esf">Alto</span></div>
-              <div><span>Modelo de amenazas y prueba de penetración</span><span class="chip alta">Alta</span><span class="esf">Medio</span></div>
-              <div><span>Plan de desarrollo de software (IEC 62304)</span><span class="chip alta">Alta</span><span class="esf">Alto</span></div>
-              <div><span>Instrucciones de uso revisadas</span><span class="chip media">Media</span><span class="esf">Bajo</span></div>
+              <div><span>Deliverable</span><span>Priority</span><span class="esf">Effort</span></div>
+              <div><span>Risk management plan (ISO 14971)</span><span class="chip alta">High</span><span class="esf">High</span></div>
+              <div><span>Clinical evaluation plan and report</span><span class="chip alta">High</span><span class="esf">High</span></div>
+              <div><span>Threat model and penetration test</span><span class="chip alta">High</span><span class="esf">Medium</span></div>
+              <div><span>Software development plan (IEC 62304)</span><span class="chip alta">High</span><span class="esf">High</span></div>
+              <div><span>Revised instructions for use</span><span class="chip media">Medium</span><span class="esf">Low</span></div>
             </div>
           </div>
           <div class="tarjeta" role="tabpanel" id="v-desc" aria-labelledby="t-desc" hidden>
-            <h5>Descargas</h5><p class="sub5">Archivos editables para tu equipo</p>
+            <h5>Downloads</h5><p class="sub5">Editable files for your team</p>
             <div class="descargas">
-              <div class="archivo"><i style="background:#1F7A4C">XLSX</i><div><strong>Matriz de requisitos</strong><span>118 filas con estado, cita y lo que falta</span></div></div>
-              <div class="archivo"><i style="background:#2B5797">DOCX</i><div><strong>Informe de diagnóstico</strong><span>Ficha, clase razonada y plan de carencias</span></div></div>
+              <div class="archivo"><i style="background:#1C8CC4">XLSX</i><div><strong>Requirements matrix</strong><span>118 checks with status, quote and what is missing</span></div></div>
+              <div class="archivo"><i style="background:#083C48">DOCX</i><div><strong>Diagnosis report</strong><span>Profile, reasoned class and gap plan</span></div></div>
             </div>
           </div>
         </div>
@@ -652,79 +888,83 @@ p{margin:0}
     </div>
   </section>
 
-  <!-- Principio -->
-  <section class="seccion principio">
+  <!-- Principle -->
+  <section class="seccion principio azul">
     <div class="env">
       <div class="sello sube" aria-hidden="true"><img src="img/amexa-logo-blanco@2x.png" alt=""></div>
       <div class="sube">
-        <blockquote>“Un borrador para el experto, no un sustituto del experto.”</blockquote>
-        <p>Es el principio con el que construimos Amexa. La IA hace la lectura y el trabajo repetitivo; las decisiones regulatorias las firma siempre un profesional cualificado.</p>
+        <blockquote>“AI does the reading. Experienced professionals make the call.”</blockquote>
+        <p>Amexa does the slow, repetitive work in minutes. A regulatory affairs professional with more than 7 years in the medical device industry reviews every result before it reaches you, and regulatory decisions are always signed by a qualified professional.</p>
+        <span class="revisado"><svg><use href="#experto"/></svg>Reviewed by a professional with 7+ years in the medical device industry</span>
       </div>
     </div>
   </section>
 
-  <!-- Cifras -->
+  <!-- Figures -->
   <section class="seccion oscuro">
     <div class="env">
       <div class="cabecera sube">
-        <h2>Rigor medible en cada análisis.</h2>
-        <p>Cifras de nuestra prueba con LunarCheck, un producto ficticio. Todavía no son resultados de clientes.</p>
+        <h2>Measurable rigour in every analysis.</h2>
+        <p>Figures from our test with LunarCheck, a fictional product. They are not client results yet.</p>
       </div>
       <div class="cifras">
-        <div class="cifra sube"><p>Requisitos del Anexo I revisados uno a uno</p><strong>118</strong></div>
-        <div class="cifra sube"><p>Comprobaciones superadas frente a las respuestas esperadas del caso de prueba</p><strong>24<small>de 24</small></strong></div>
-        <div class="cifra sube"><p>Carencias detectadas y ordenadas por prioridad</p><strong>14</strong></div>
-        <div class="cifra sube"><p>Duración del análisis de un expediente de 5 documentos</p><strong>≈8<small>min</small></strong></div>
+        <div class="cifra sube"><p>Checks across the 23 requirements of Annex I</p><strong>118</strong></div>
+        <div class="cifra sube"><p>Checks passed against the expected answers of the test case</p><strong>24<small>of 24</small></strong></div>
+        <div class="cifra sube"><p>Gaps found and ordered by priority</p><strong>14</strong></div>
+        <div class="cifra sube"><p>Analysis time for a file of 5 documents</p><strong>≈8<small>min</small></strong></div>
       </div>
-      <p class="aclaracion">Las comprobaciones incluyen la clase de riesgo, la contradicción escondida en los documentos y las filas que debían estar abiertas, con evidencia o sin aplicar.</p>
+      <p class="aclaracion">The checks include the risk class, the contradiction hidden in the documents and the rows that had to be open, supported by evidence or not applicable.</p>
     </div>
   </section>
 
-  <!-- Seguridad -->
-  <section class="seccion" id="seguridad">
+  <!-- Confidentiality -->
+  <section class="seccion" id="confidentiality">
     <div class="env seguridad">
       <div class="izq sube">
-        <span class="etiqueta">Confidencialidad</span>
-        <h2 style="margin-top:18px">Tus documentos, tratados como lo que son: confidenciales.</h2>
-        <p>Tu documentación técnica es lo más valioso que tienes. Estas son las reglas con las que la tratamos.</p>
+        <span class="etiqueta">Confidentiality</span>
+        <h2 style="margin-top:18px">Your documents, treated as what they are: confidential.</h2>
+        <p>Your technical documentation is your most valuable asset. These are the rules we follow with it.</p>
       </div>
       <div class="lista-seg sube">
-        <details><summary><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M10 13h6M10 17h4"/></svg><span>Acuerdo de confidencialidad (NDA)</span><em>Detalles</em></summary><p>Firmamos un acuerdo de confidencialidad antes de que nos envíes ningún documento.</p></details>
-        <details><summary><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg><span>Tus documentos no entrenan modelos de IA</span><em>Detalles</em></summary><p>Usamos la API de Anthropic, que no utiliza el contenido enviado por sus clientes para entrenar sus modelos.</p></details>
-        <details><summary><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg><span>Te explicamos dónde y cuánto tiempo</span><em>Detalles</em></summary><p>Antes de empezar te contamos por escrito dónde se procesan y se guardan tus datos, durante cuánto tiempo y cómo se borran.</p></details>
-        <details><summary><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="10" width="14" height="10" rx="2.5"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><span>Sin datos de pacientes, si lo prefieres</span><em>Detalles</em></summary><p>Puedes enviarnos la documentación sin datos personales de pacientes. Para el diagnóstico no los necesitamos.</p></details>
-        <details><summary><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h10M4 17h7"/><path d="M17 15l2 2 3-4"/></svg><span>Cada afirmación, comprobable</span><em>Detalles</em></summary><p>Todas las citas se comprueban contra tu documento original. Tú y tu experto podéis verificar de dónde sale cada conclusión.</p></details>
+        <details><summary><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M10 13h6M10 17h4"/></svg><span>Confidentiality terms before any upload</span><em>Details</em></summary><p>You accept our <a href="legal.html#confidentiality">confidentiality terms</a> before you upload any document. If your company prefers its own NDA, we sign it before you send anything.</p></details>
+        <details><summary><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg><span>Your documents do not train AI models</span><em>Details</em></summary><p>We use the Anthropic API, which does not use its customers' content to train its models.</p></details>
+        <details><summary><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg><span>We tell you where and for how long</span><em>Details</em></summary><p>Your files are stored with our form provider in the EU and analysed through the Anthropic API, which deletes inputs and outputs within 30 days. We delete your documents within 90 days of delivering your result. Details in our <a href="legal.html#privacy">privacy policy</a>.</p></details>
+        <details><summary><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="10" width="14" height="10" rx="2.5"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><span>No patient data, if you prefer</span><em>Details</em></summary><p>You can send your documentation without any personal patient data. We don't need it for the diagnosis.</p></details>
+        <details><summary><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h10M4 17h7"/><path d="M17 15l2 2 3-4"/></svg><span>Every statement can be checked</span><em>Details</em></summary><p>All quotes are checked against your original document. You and your expert can verify where every conclusion comes from.</p></details>
       </div>
     </div>
   </section>
 
-  <!-- Preguntas -->
-  <section class="seccion" id="preguntas" style="padding-top:0">
+  <!-- FAQ -->
+  <section class="seccion" id="faq" style="padding-top:0">
     <div class="env">
-      <div class="intro sube"><h2>Preguntas frecuentes</h2></div>
+      <div class="intro sube"><h2>Frequently asked questions</h2></div>
       <div class="faq">
-        <details><summary>¿Sustituye a mi consultor regulatorio?<span aria-hidden="true">+</span></summary><p>No. Amexa hace la primera pasada: lee todo, clasifica y señala lo que falta, con las fuentes a la vista. Tu experto empieza a trabajar con eso ya hecho.</p></details>
-        <details><summary>¿Y si mi software no es producto sanitario?<span aria-hidden="true">+</span></summary><p>También te sirve: te lo decimos con su argumento por escrito según la guía MDCG 2019-11, útil cuando un hospital o un inversor te lo pregunte.</p></details>
-        <details><summary>¿Qué documentos necesito?<span aria-hidden="true">+</span></summary><p>Los que ya tengas: descripción y finalidad del producto, arquitectura, especificaciones y pruebas, instrucciones de uso y gestión de riesgos. Cuanto más completo, mejor diagnóstico. Si te falta alguno, también te lo diremos.</p></details>
-        <details><summary>¿Cuánto cuesta?<span aria-hidden="true">+</span></summary><p>Los primeros diagnósticos son gratis y sin compromiso, a partir de enero de 2027. Si después quieres seguir, te contamos el precio con tu caso concreto.</p></details>
-        <details><summary>¿Cuánto tarda?<span aria-hidden="true">+</span></summary><p>El análisis tarda minutos. Después lo revisamos y lo repasamos contigo en una llamada, normalmente en pocos días.</p></details>
-        <details><summary>¿Podemos vernos en persona?<span aria-hidden="true">+</span></summary><p>Sí. Si después del diagnóstico queréis seguir adelante, vamos a veros para cerrarlo todo en persona.</p></details>
+        <details><summary>Is it just an AI draft?<span aria-hidden="true">+</span></summary><p>No. Amexa does the first pass and a regulatory affairs professional with more than 7 years of experience in the medical device industry reviews every result before you receive it.</p></details>
+        <details><summary>Can you prepare the full technical file?<span aria-hidden="true">+</span></summary><p>Yes. Besides the diagnosis, we offer two SaMD packages that prepare the MDR technical file: one for Class I software and one for Class IIa software. We give you the price once we have seen your case. For Class IIb or III, write to us and we will tell you how we can help.</p></details>
+        <details><summary>Can I hire you monthly or annually?<span aria-hidden="true">+</span></summary><p>Yes. With a monthly or annual plan we review every new version or feature of your product, keep your technical file up to date and track your gaps until they are closed.</p></details>
+        <details><summary>Do I have to talk to someone before I start?<span aria-hidden="true">+</span></summary><p>No. You can choose a plan, pay online and upload your documents yourself. For the SaMD packages, we send you a quote once we have reviewed your documents. If you prefer a call, we are happy to have one.</p></details>
+        <details><summary>How do I pay?<span aria-hidden="true">+</span></summary><p>By card through Stripe. Monthly plans renew each month until you cancel. Annual plans are paid once for 12 months. Prices exclude VAT and you receive an invoice for every payment.</p></details>
+        <details><summary>Is the trial really free?<span aria-hidden="true">+</span></summary><p>Yes. We offer free, no-commitment trials so you can see the quality of our work before you pay anything. First slots from January 2027.</p></details>
+        <details><summary>What if my software is not a medical device?<span aria-hidden="true">+</span></summary><p>That is useful too: you get the argument in writing under MDCG 2019-11, ready for when a hospital or an investor asks.</p></details>
+        <details><summary>Which documents do I need?<span aria-hidden="true">+</span></summary><p>Whatever you already have: product description and intended purpose, architecture, specifications and tests, instructions for use and risk management. If something is missing, we will tell you.</p></details>
+        <details><summary>Can we meet in person?<span aria-hidden="true">+</span></summary><p>Yes. If you want to move forward after the diagnosis, we can meet you in person to close everything.</p></details>
       </div>
     </div>
   </section>
 
-  <!-- Cierre -->
-  <section class="cierre" id="reservar">
+  <!-- Closing -->
+  <section class="cierre" id="book">
     <div class="env">
       <div class="sube">
-        <h2>Reserva tu diagnóstico gratuito.</h2>
-        <p>Estamos reservando plazas para los primeros diagnósticos, gratis y sin compromiso, a partir de enero de 2027. Cuéntanos qué hace tu software y te guardamos una.</p>
+        <h2>Start your free trial.</h2>
+        <p>We are booking slots for the first diagnoses, free and with no commitment, from January 2027. Upload your documents and we will save you one.</p>
       </div>
       <div class="acciones sube">
-        <a class="boton b-blanco" href="mailto:dsegadovizcaino@gmail.com?subject=Reserva%20de%20diagn%C3%B3stico%20MDR&amp;body=Hola%2C%20me%20gustar%C3%ADa%20reservar%20una%20plaza.%0A%0AStartup%3A%20%0AQu%C3%A9%20hace%20el%20software%3A%20">Reservar mi plaza <svg class="flecha"><use href="#flecha"/></svg></a>
-        <a class="boton b-borde-claro" href="#problemas">Ver qué resolvemos</a>
+        <a class="boton b-blanco" href="start.html?service=diagnosis">Upload my documents <svg class="flecha"><use href="#flecha"/></svg></a>
+        <a class="boton b-borde-claro" href="#pricing">See pricing</a>
       </div>
-      <p class="correo">También puedes escribirnos a <a href="mailto:dsegadovizcaino@gmail.com">dsegadovizcaino@gmail.com</a></p>
+      <p class="correo">You can also write to us at <a href="mailto:dsegadovizcaino@gmail.com">dsegadovizcaino@gmail.com</a></p>
     </div>
   </section>
 </main>
@@ -733,15 +973,16 @@ p{margin:0}
   <div class="env">
     <div class="marca">
       <img src="img/amexa-logo-blanco@2x.png" alt="Amexa" width="1200" height="314">
-      <p>Diagnóstico regulatorio MDR para startups de software sanitario.</p>
+      <p>MDR regulatory diagnosis and SaMD packages for medical software startups.</p>
     </div>
-    <div><h6>Producto</h6><ul><li><a href="#problemas">Qué resolvemos</a></li><li><a href="#producto">Lo que recibes</a></li><li><a href="#seguridad">Confidencialidad</a></li></ul></div>
-    <div><h6>Ayuda</h6><ul><li><a href="#preguntas">Preguntas</a></li><li><a href="#reservar">Reservar plaza</a></li></ul></div>
-    <div><h6>Contacto</h6><ul><li><a href="mailto:dsegadovizcaino@gmail.com">Escríbenos</a></li></ul></div>
-    <p class="legal">Amexa genera borradores de diagnóstico regulatorio. La clasificación y la evaluación de conformidad corresponden siempre a un profesional cualificado. Fuentes de los datos citados: <a href="https://www.medtecheurope.org/wp-content/uploads/2025/01/mte_report_ivdr_mdr_2024-v7.pdf" target="_blank" rel="noopener">MedTech Europe (2024)</a>, <a href="https://www.paconsulting.com/newsroom/med-device-online-were-heading-toward-a-bottleneck-for-eu-mdr-approvals-how-to-get-ahead-13-november-2024" target="_blank" rel="noopener">PA Consulting (2024)</a>, <a href="https://matrixone.health/blog/navigating-the-european-union-s-medical-device-regulation-mdr-challenges-and-crucial-aspects-for-manufacturers" target="_blank" rel="noopener">Matrix One</a>. © 2026 Amexa.</p>
+    <div><h6>Product</h6><ul><li><a href="#problems">What we solve</a></li><li><a href="#product">What you receive</a></li><li><a href="#confidentiality">Confidentiality</a></li></ul></div>
+    <div><h6>Services</h6><ul><li><a href="#services">Free trial</a></li><li><a href="#services">SaMD packages</a></li><li><a href="#pricing">Pricing</a></li></ul></div>
+    <div><h6>Contact</h6><ul><li><a href="#faq">FAQ</a></li><li><a href="mailto:dsegadovizcaino@gmail.com">Write to us</a></li><li><a href="legal.html">Terms and privacy</a></li></ul></div>
+    <p class="legal">Regulatory decisions, classification and conformity assessment are always signed by a qualified professional. Sources of the figures quoted: <a href="https://www.medtecheurope.org/wp-content/uploads/2025/01/mte_report_ivdr_mdr_2024-v7.pdf" target="_blank" rel="noopener">MedTech Europe (2024)</a>, <a href="https://www.paconsulting.com/newsroom/med-device-online-were-heading-toward-a-bottleneck-for-eu-mdr-approvals-how-to-get-ahead-13-november-2024" target="_blank" rel="noopener">PA Consulting (2024)</a>, <a href="https://matrixone.health/blog/navigating-the-european-union-s-medical-device-regulation-mdr-challenges-and-crucial-aspects-for-manufacturers" target="_blank" rel="noopener">Matrix One</a>. © 2026 Amexa.</p>
   </div>
 </footer>
 
+<script src="config.js"></script>
 <script>
 {
   document.documentElement.classList.add('js');
@@ -778,6 +1019,20 @@ p{margin:0}
       sig.focus(); activar(sig);
     });
   });
+
+  const cfg = window.AMEXA || {stripe:{}};
+  let periodo = 'monthly';
+  const botonesPeriodo = document.querySelectorAll('[data-periodo]');
+  const pintar = () => {
+    botonesPeriodo.forEach((b) => b.setAttribute('aria-pressed', b.dataset.periodo === periodo));
+    document.querySelectorAll('[data-mensual]').forEach((el) => { el.textContent = periodo === 'monthly' ? el.dataset.mensual : el.dataset.anual; });
+    document.querySelectorAll('[data-plan]').forEach((a) => {
+      const clave = a.dataset.plan + '-' + periodo;
+      a.href = (cfg.stripe && cfg.stripe[clave]) || ('start.html?service=plan-' + clave);
+    });
+  };
+  botonesPeriodo.forEach((b) => b.addEventListener('click', () => { periodo = b.dataset.periodo; pintar(); }));
+  pintar();
 }
 </script>
 </body>

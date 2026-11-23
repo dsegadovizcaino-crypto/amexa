@@ -16,10 +16,19 @@ Amexa lee la documentación técnica de un software sanitario y prepara un borra
 
 1. **Ficha del producto.** Finalidad, usuarios, entorno, uso de IA y datos que maneja. Avisa si dos documentos se contradicen.
 2. **Clase de riesgo.** Si es producto sanitario (guía MDCG 2019-11) y su clase según la Regla 11 del Anexo VIII, razonada paso a paso.
-3. **Matriz de requisitos.** Los 118 requisitos generales de seguridad y funcionamiento del Anexo I, cada uno con su estado y una cita literal de los documentos.
+3. **Matriz de requisitos.** Los 23 requisitos generales de seguridad y funcionamiento del Anexo I, divididos en 118 comprobaciones, cada una con su estado y una cita literal de los documentos.
 4. **Plan de carencias.** Lo que falta, ordenado por prioridad, con el entregable que lo cierra.
 
-El resultado se descarga en Excel y Word, en español o en inglés. Es un borrador para el experto regulatorio, no un sustituto: la clasificación y la evaluación de conformidad las firma siempre un profesional cualificado.
+El resultado se descarga en Excel y Word, en español o en inglés. Antes de llegar al cliente, cada resultado lo revisa una profesional de asuntos regulatorios con más de 7 años de experiencia en el sector de los productos sanitarios.
+
+## Servicios
+
+- **Diagnóstico MDR gratis y sin compromiso**, para que el cliente vea la calidad antes de pagar.
+- **Class I SaMD package**: expediente técnico MDR para software de clase I.
+- **Class IIa SaMD package**: expediente técnico MDR para software de clase IIa.
+- **Planes mensuales o anuales**: Essential (490 €/mes), Growth (990 €/mes) y Audit Ready (1.900 €/mes), con dos meses gratis en el plan anual.
+
+El cliente puede elegir un plan, pagar con tarjeta (Stripe) y subir sus documentos desde la web (`start.html`) sin necesidad de llamada.
 
 ## El problema que resuelve
 
@@ -33,7 +42,7 @@ Probamos Amexa con **LunarCheck**, un producto ficticio creado para pruebas: una
 
 | Resultado | Valor |
 | --- | --- |
-| Requisitos del Anexo I revisados | 118 |
+| Comprobaciones de los 23 requisitos del Anexo I | 118 |
 | Comprobaciones superadas frente a las respuestas esperadas | 24 de 24 |
 | Clase propuesta | III (con IIb como alternativa razonada) |
 | Contradicción entre documentos detectada | Sí |
@@ -54,7 +63,7 @@ Tecnologías: Python, Claude API, Pydantic, fastembed, Flask, openpyxl y python-
 
 ## Este repositorio
 
-Contiene la web pública de Amexa (`index.html` e `img/`). El código del analizador es privado.
+Contiene la web pública de Amexa, en inglés (`index.html` e `img/`). El código del analizador es privado.
 
 ## Estado
 
