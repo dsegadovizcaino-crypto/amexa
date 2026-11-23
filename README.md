@@ -1,133 +1,79 @@
-# Amexa — empieza aquí, Dani
+<p align="center"><img src="img/amexa-logo@2x.png" alt="Amexa" width="320"></p>
 
-Esta carpeta contiene el código de Amexa, el analizador de documentación de software sanitario. Puedes usarla para continuar el proyecto con Claude. La aplicación prepara una ficha del producto, una clasificación preliminar, una matriz de requisitos y una lista de pendientes, con exportaciones a Word y Excel.
+<h3 align="center">Diagnóstico regulatorio MDR con IA para startups de software sanitario</h3>
 
-**Empieza por la demo simulada.** Utiliza documentos inventados y respuestas de prueba. No necesitas una clave de API ni una base de datos externa para esa primera prueba. Los resultados simulados no validan la precisión del análisis regulatorio.
+<p align="center">
+  <a href="mailto:dsegadovizcaino@gmail.com?subject=Reserva%20de%20diagn%C3%B3stico%20MDR">Reservar un diagnóstico</a>
+</p>
 
-## 1. Descomprime el ZIP
+---
 
-En Windows, pulsa el botón derecho sobre el ZIP y elige **Extraer todo**. Abre la carpeta `Amexa` extraída. Dentro deben estar este `README.md`, `requirements.txt`, `analizador` y `tests`. Trabaja siempre en esa carpeta, fuera del ZIP.
+![Portada de la web de Amexa](docs/landing-portada.png)
 
-Guarda también el ZIP recibido para conservar una copia del punto de partida.
+## Qué es Amexa
 
-## 2. Abre el proyecto con Claude
+Amexa lee la documentación técnica de un software sanitario y prepara un borrador de diagnóstico según el Reglamento europeo de productos sanitarios (MDR, Reglamento (UE) 2017/745):
 
-La forma más cómoda es usar **Claude Code** desde la aplicación de escritorio de Claude, con una cuenta que tenga acceso a esa función:
+1. **Ficha del producto.** Finalidad, usuarios, entorno, uso de IA y datos que maneja. Avisa si dos documentos se contradicen.
+2. **Clase de riesgo.** Si es producto sanitario (guía MDCG 2019-11) y su clase según la Regla 11 del Anexo VIII, razonada paso a paso.
+3. **Matriz de requisitos.** Los 23 requisitos generales de seguridad y funcionamiento del Anexo I, divididos en 118 comprobaciones, cada una con su estado y una cita literal de los documentos.
+4. **Plan de carencias.** Lo que falta, ordenado por prioridad, con el entregable que lo cierra.
 
-1. Instala o abre Claude Desktop e inicia sesión.
-2. Abre la pestaña **Code**, crea una sesión y selecciona la carpeta `Amexa` que acabas de extraer.
-3. Abre `CONTINUAR_CON_CLAUDE.md` y copia su mensaje inicial en esa sesión.
-4. Pídele primero que te ayude a instalar y arrancar la demo. No necesitas escribir el código tú.
+El resultado se descarga en Excel y Word, en español o en inglés. Antes de llegar al cliente, cada resultado lo revisa una profesional de asuntos regulatorios con más de 7 años de experiencia en el sector de los productos sanitarios.
 
-[Guía oficial para empezar con Claude Code](https://support.claude.com/en/articles/14552382-your-first-day-in-claude-code).
+## Servicios
 
-Si ya utilizas Claude Code en una terminal, abre una terminal dentro de `Amexa`, ejecuta `claude` y pega el mismo mensaje. Una conversación normal en la web no obtiene acceso por sí sola a la carpeta de tu ordenador.
+- **Diagnóstico MDR gratis y sin compromiso**, para que el cliente vea la calidad antes de pagar.
+- **Class I SaMD package**: expediente técnico MDR para software de clase I.
+- **Class IIa SaMD package**: expediente técnico MDR para software de clase IIa.
+- **Planes mensuales o anuales**: Essential (490 €/mes), Growth (990 €/mes) y Audit Ready (1.900 €/mes), con dos meses gratis en el plan anual.
 
-## 3. Instala lo necesario en Windows
+El cliente puede elegir un plan, pagar con tarjeta (Stripe) y subir sus documentos desde la web (`start.html`) sin necesidad de llamada.
 
-Puedes pedir a Claude que te acompañe en estos pasos. Necesitas conexión a internet para descargar las dependencias y Python de 64 bits. Esta entrega se ha comprobado con **Python 3.10.10** y las dependencias ya instaladas en el entorno del proyecto. No se ha verificado una instalación nueva con otra versión de Python; si aún no lo tienes, pide a Claude que compruebe una versión compatible con `requirements.txt` antes de instalarla.
+## El problema que resuelve
 
-[Descarga oficial de Python para Windows](https://www.python.org/downloads/windows/).
+Para vender un software sanitario en Europa hay que demostrar que cumple el MDR. Para una startup eso significa leer cientos de páginas de normativa, acertar con la clase de riesgo y descubrir a tiempo lo que falta en el expediente. Llegar incompleto al organismo notificado puede hacer que rechacen la solicitud y que la espera vuelva a empezar.
 
-Abre PowerShell dentro de la carpeta `Amexa`: en el Explorador, pulsa la barra de la ruta, escribe `powershell` y pulsa Intro. Comprueba Python:
+![Bloques problema y solución de la web](docs/problema-solucion.png)
 
-```powershell
-py --version
-```
+## Primera prueba real (noviembre de 2026)
 
-Ejecuta estas dos líneas, una cada vez. Espera a que termine cada una:
+Probamos Amexa con **LunarCheck**, un producto ficticio creado para pruebas: una app que estima el riesgo de un lunar a partir de una foto.
 
-```powershell
-py -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -r requirements.txt
-```
-
-La carpeta `.venv` se crea en tu ordenador y contiene los programas que necesita Amexa. Puede ocupar bastante espacio. No hace falta instalar Node.js para ejecutar esta aplicación.
-
-Si `py` no se reconoce, prueba `python --version` y usa `python -m venv .venv` en la primera línea. Si aparece un error al instalar, copia el texto del error a Claude y detente antes del siguiente paso.
-
-## 4. Arranca la demo sin gastar en la API
-
-Para esta primera prueba, deja `.env` sin crear y no configures conexiones a bases de datos. En la misma ventana de PowerShell ejecuta:
-
-```powershell
-.\.venv\Scripts\python.exe tests\servidor_piloto.py
-```
-
-Cuando aparezca el mensaje de que el servidor está escuchando, abre esta dirección en el navegador:
-
-**http://127.0.0.1:8767**
-
-Deja PowerShell abierto mientras la usas. Verás el piloto con el ejemplo ficticio de LunarCheck, preparado en español e inglés. Puedes explorar la matriz, las carencias y la revisión, y descargar los ejemplos de Word y Excel. Los datos de esta sesión se guardan en una carpeta temporal; al volver a arrancar el piloto se prepara una nueva sesión.
-
-Para detenerlo, vuelve a PowerShell y pulsa **Ctrl+C**. Para abrirlo otro día, repite solo el comando de este apartado; no necesitas volver a instalarlo todo.
-
-Si el puerto está ocupado, usa otro:
-
-```powershell
-.\.venv\Scripts\python.exe tests\servidor_piloto.py 8777
-```
-
-En ese caso abre `http://127.0.0.1:8777`.
-
-## 5. Cuando quieras probar el análisis real
-
-Hazlo después de comprobar la demo con Claude. La API que usa Amexa se configura aparte de la cuenta con la que programas en Claude y puede generar gasto.
-
-1. Copia la plantilla, sin sobrescribir un `.env` que ya hayas creado:
-
-   ```powershell
-   Copy-Item .env.example .env
-   notepad .env
-   ```
-
-2. Escribe tu propia clave en `ANTHROPIC_API_KEY` y guarda. No la pegues en una conversación ni la incluyas al volver a compartir el proyecto.
-3. Comprueba con Claude que el modelo configurado en `analizador/config.py` está disponible para vuestra cuenta. El nombre de modelo y las estimaciones de precio se han conservado del código recibido; no se ha validado su acceso con una API real en esta entrega.
-4. Arranca la aplicación normal:
-
-   ```powershell
-   .\.venv\Scripts\python.exe -m analizador web
-   ```
-
-5. Abre `http://127.0.0.1:8765` si el navegador no se abre solo. Para las primeras pruebas utiliza únicamente los productos ficticios incluidos. El análisis real puede descargar además el modelo local de embeddings la primera vez.
-
-Para documentación real de clientes quedan pendientes la configuración y comprobación de la base de datos, las condiciones de privacidad y la validación experta descritas en `docs/REFERENCIA_TECNICA.md`. No cambies `ANALIZADOR_ZDR_CONFIRMADO` a `1` para saltarte esa comprobación. Los informes que genera el proyecto son borradores para revisión experta.
-
-## Qué contiene la carpeta
-
-| Archivo o carpeta | Para qué sirve |
+| Resultado | Valor |
 | --- | --- |
-| `analizador/` | Aplicación Python, página local y lógica del análisis y la revisión. |
-| `datos_prueba/` | Productos y documentos ficticios para probar. |
-| `tests/` | Pruebas automáticas y servidores simulados. Se necesitan para la demo. |
-| `kb/` | Base de conocimiento y fuentes públicas utilizadas por el proyecto. |
-| `herramientas/` | Utilidades para preparar ejemplos y la base de conocimiento. |
-| `landing/` | Web de presentación de Amexa (noviembre de 2026). Se publica arrastrando la carpeta a app.netlify.com/drop. |
-| `supabase/esquema.sql` | Estructura de la base de datos opcional. |
-| `.env.example` | Plantilla sin claves, para configurar el modo real. |
-| `docs/REFERENCIA_TECNICA.md` | README técnico original conservado como referencia; contiene también instrucciones de alojamiento que no necesitas para empezar. |
-| `docs/ENTREGA.md` | Procedencia, limpieza y comprobaciones de esta entrega. |
+| Comprobaciones de los 23 requisitos del Anexo I | 118 |
+| Comprobaciones superadas frente a las respuestas esperadas | 24 de 24 |
+| Clase propuesta | III (con IIb como alternativa razonada) |
+| Contradicción entre documentos detectada | Sí |
+| Carencias detectadas y priorizadas | 14 |
+| Duración del análisis (5 documentos) | ≈ 8 minutos |
 
-El ZIP no incluye claves, la base de datos ni su contenido, documentos de clientes, resultados previos, accesos a servicios ni la instalación del ordenador de origen. Los enlaces de revisión y el alojamiento se configuran aparte. No se ha desplegado nada al preparar esta entrega.
+Son cifras de un caso de prueba, todavía no de clientes.
 
-## Si utilizas Mac o Linux
+## Cómo funciona por dentro
 
-Desde una terminal situada en `Amexa`, los comandos equivalentes son:
+- **Lectura de documentos** PDF y Word, divididos en fragmentos con su página y apartado.
+- **Búsqueda híbrida** (vectores y texto) calculada en local: el texto no se envía a servicios de terceros para indexarlo.
+- **Razonamiento con Claude (Anthropic)** sobre los textos oficiales: MDR, Anexo I, Anexo VIII y guías MDCG 2019-11, 2019-16 y 2020-1.
+- **Verificación de citas** palabra por palabra contra el documento original. Una cita que no aparece tal cual se descarta.
+- **Exportación** a Excel y Word, y un módulo de revisión para que el experto acepte, corrija o rechace cada fila.
 
-```sh
-python3 -m venv .venv
-.venv/bin/python -m pip install -r requirements.txt
-.venv/bin/python tests/servidor_piloto.py
-```
+Tecnologías: Python, Claude API, Pydantic, fastembed, Flask, openpyxl y python-docx.
 
-Abre `http://127.0.0.1:8767`. Las comprobaciones de esta entrega se han hecho en Windows; esta ruta para Mac y Linux no se ha probado aquí.
+## Este repositorio
 
-## Comprobación técnica opcional
+Contiene la web pública de Amexa, en inglés: la página principal (`index.html`), la página para subir documentos (`start.html`), las condiciones y la privacidad (`legal.html`), la configuración de pagos y subida (`config.js`) y las imágenes (`img/`). El código del analizador es privado.
 
-Claude puede ejecutar las pruebas sin consumir la API:
+## Estado
 
-```powershell
-.\.venv\Scripts\python.exe -m pytest tests -q
-```
+Piloto. Estamos reservando plazas para los primeros diagnósticos, gratis y sin compromiso, a partir de enero de 2027.
 
-Las pruebas de Postgres requieren una base de pruebas separada y `TEST_DATABASE_URL`; es normal que se omitan si no está configurada. Consulta el resultado de la comprobación de esta entrega en `docs/ENTREGA.md`.
+## Equipo
+
+- **Daniel Segado Vizcaíno**, fundador: producto, negocio y relación con clientes.
+- **Bruno Marconi**, desarrollo de la primera versión del software.
+
+## Contacto
+
+[dsegadovizcaino@gmail.com](mailto:dsegadovizcaino@gmail.com)
