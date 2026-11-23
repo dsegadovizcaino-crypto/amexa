@@ -8,7 +8,7 @@
 
 ---
 
-![Portada de la web de Amexa](docs/amexa-portada.png)
+![Portada de la web de Amexa](amexa-portada.png)
 
 ## Qué es Amexa
 
@@ -34,7 +34,7 @@ El cliente puede elegir un plan, pagar con tarjeta (Stripe) y subir sus document
 
 Para vender un software sanitario en Europa hay que demostrar que cumple el MDR. Para una startup eso significa leer cientos de páginas de normativa, acertar con la clase de riesgo y descubrir a tiempo lo que falta en el expediente. Llegar incompleto al organismo notificado puede hacer que rechacen la solicitud y que la espera vuelva a empezar.
 
-![Bloques problema y solución de la web](docs/amexa-problemas.png)
+![Bloques problema y solución de la web](amexa-problemas.png)
 
 ## Primera prueba real (noviembre de 2026)
 
