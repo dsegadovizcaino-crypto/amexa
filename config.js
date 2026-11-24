@@ -8,12 +8,17 @@
      Los pagos solo se activan cuando cambies paymentsOpen a true (en enero de 2027).
      Mientras sea false, los botones de los planes llevan a la página de reserva (start.html) y no se cobra nada.
 
-  2. Formulario de reserva (Tally): pega el código de tu formulario de Tally.
-     Si el enlace de tu formulario es https://tally.so/r/wXyZ12, el código es wXyZ12.
-     Mientras esté vacío, la página start.html pide que reserven por correo.
+  2. Formulario de reserva. Las reservas llegan a tu correo por uno de estos dos servicios:
+     - web3formsKey: la "Access Key" que Web3Forms te manda por email. Si está puesta, se usa Web3Forms (recomendado).
+     - formsubmitId: el código del email de activación de FormSubmit. Solo se usa si web3formsKey está vacío.
+     tallyFormId: déjalo vacío. Si algún día pones un código de Tally, se usará Tally en vez de FormSubmit.
 */
 window.AMEXA = {
   email: 'amexa.mdr@gmail.com',
+
+  web3formsKey: '9447b8b4-ac15-4c62-8ff3-a52e49dc82a4',
+
+  formsubmitId: 'fa6809fd88c8b83139047f158ff03f0f',
 
   tallyFormId: '',
 

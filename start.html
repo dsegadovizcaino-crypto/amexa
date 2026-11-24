@@ -248,7 +248,7 @@ p{margin:0}
         'Código de reserva': codigo,
         'Servicio': servNombre,
         'Nombre': d.nombre,
-        'Email': d.email,
+        'email': d.email,
         'Empresa': d.empresa,
         'Cargo': d.cargo || '-',
         'Web': d.web || '-',
@@ -272,18 +272,29 @@ p{margin:0}
           + 'Reserving is free and does not commit you to buy anything. If you have any questions, write to ' + correo + '.\n\n'
           + 'Best regards,\nDaniel Segado\nAmexa · MDR documentation for medical software'
       };
+      const usaWeb3 = !!cfg.web3formsKey;
       enviar.disabled = true;
       enviar.textContent = 'Sending…';
-      estado.textContent = '';
+      estado.classList.remove('error');
+      estado.textContent = usaWeb3 ? 'Sending your reservation…' : 'Sending your reservation. This can take up to a minute, please keep this page open.';
       try {
         if (location.protocol === 'file:') throw new Error('local-file');
         const ctrl = new AbortController();
-        const reloj = setTimeout(() => ctrl.abort(), 25000);
-        const r = await fetch('https://formsubmit.co/ajax/' + encodeURIComponent(correo), {
+        const reloj = setTimeout(() => ctrl.abort(), 90000);
+        let url, envio;
+        if (usaWeb3) {
+          url = 'https://api.web3forms.com/submit';
+          envio = {access_key: cfg.web3formsKey, subject: datos._subject, from_name: 'Amexa · Reservas', replyto: d.email, botcheck: ''};
+          Object.keys(datos).forEach((k) => { if (!k.startsWith('_')) envio[k] = datos[k]; });
+        } else {
+          url = 'https://formsubmit.co/ajax/' + encodeURIComponent(cfg.formsubmitId || correo);
+          envio = datos;
+        }
+        const r = await fetch(url, {
           method: 'POST',
           signal: ctrl.signal,
           headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
-          body: JSON.stringify(datos)
+          body: JSON.stringify(envio)
         });
         clearTimeout(reloj);
         const j = await r.json().catch(() => ({}));
@@ -299,7 +310,9 @@ p{margin:0}
         p2.append('Your reservation code: ');
         const b = document.createElement('strong'); b.textContent = codigo; p2.appendChild(b);
         const p3 = document.createElement('p');
-        p3.textContent = 'We have sent a confirmation to ' + d.email + '. We will contact you in January 2027 to start.';
+        p3.textContent = usaWeb3
+          ? 'Please keep this code. We will also confirm your reservation by email at ' + d.email + ' within 24 hours, and contact you in January 2027 to start.'
+          : 'We have sent a confirmation to ' + d.email + '. We will contact you in January 2027 to start.';
         ok.append(h, p1, p2, p3);
         f.replaceWith(ok);
         ok.scrollIntoView({behavior: 'smooth', block: 'center'});
