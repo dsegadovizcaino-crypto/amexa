@@ -13,7 +13,7 @@
      Mientras esté vacío, la página start.html pide que reserven por correo.
 */
 window.AMEXA = {
-  email: 'dsegadovizcaino@gmail.com',
+  email: 'amexa.mdr@gmail.com',
 
   tallyFormId: '',
 

@@ -56,6 +56,11 @@ p{margin:0}
 .zona-form iframe{width:100%;border:0;min-height:520px}
 .correo-alt{margin-top:18px;padding:20px;border-radius:10px;background:var(--papel-2);font-size:15px}
 .correo-alt .boton{margin-top:14px}
+.b-linea{background:#fff;color:var(--tinta);border:1px solid var(--linea)}
+.correo-botones{display:flex;flex-wrap:wrap;gap:10px}
+.correo-copiar{margin-top:16px;font-size:14px;color:var(--suave)}
+.correo-copiar strong{color:var(--tinta);font-weight:600}
+.correo-copiar button{margin-left:6px;padding:4px 10px;border:1px solid var(--linea);border-radius:6px;background:#fff;font:500 13px/1.2 var(--sans);cursor:pointer}
 .pie{padding:32px 0 56px;font-size:13.5px;color:var(--suave);text-align:center}
 .pie a{color:var(--tinta)}
 [hidden]{display:none!important}
@@ -114,7 +119,7 @@ p{margin:0}
 </main>
 
 <footer class="pie">
-  © 2026 Amexa · <a href="legal.html">Terms and privacy</a> · <a href="mailto:dsegadovizcaino@gmail.com">dsegadovizcaino@gmail.com</a>
+  © 2026 Amexa · <a href="legal.html">Terms and privacy</a> · <a href="mailto:amexa.mdr@gmail.com">amexa.mdr@gmail.com</a>
 </footer>
 
 <script src="config.js"></script>
@@ -176,14 +181,65 @@ p{margin:0}
       const caja = document.createElement('div');
       caja.className = 'correo-alt';
       const t = document.createElement('p');
-      t.textContent = 'Send us a short email with your details and we will confirm your reservation the same day.';
-      const a = document.createElement('a');
-      a.className = 'boton b-azul';
-      a.textContent = 'Reserve by email';
-      const asunto = 'Amexa reservation - ' + servicio;
-      const cuerpo = 'Hi,\n\nI would like to reserve a place with Amexa. I accept the privacy policy.\n\nService: ' + servicio + '\nName: \nCompany: \nWhat our software does: \n\nThank you.';
-      a.href = 'mailto:' + (cfg.email || '') + '?subject=' + encodeURIComponent(asunto) + '&body=' + encodeURIComponent(cuerpo);
-      caja.append(t, a);
+      t.textContent = 'Send us a short email with your details and we will confirm your reservation the same day. Choose how you want to write it:';
+      const correo = cfg.email || '';
+      const nombresServ = {
+        'diagnosis': 'Free MDR diagnosis',
+        'package-class-i': 'Class I SaMD package',
+        'package-class-iia': 'Class IIa SaMD package',
+        'plan': 'Monthly or annual plan'
+      };
+      let nombreServ = nombresServ[servicio] || servicio;
+      if (servicio.startsWith('plan-')) {
+        const [, pl, pe] = servicio.split('-');
+        const np = {essential: 'Essential', growth: 'Growth', audit: 'Audit Ready'};
+        nombreServ = (np[pl] || pl) + ' plan, ' + (pe === 'annual' ? 'annual' : 'monthly');
+      }
+      const hoy = new Date();
+      const codigo = 'AMX-' + String(hoy.getFullYear()).slice(2) + String(hoy.getMonth() + 1).padStart(2, '0') + String(hoy.getDate()).padStart(2, '0') + '-' + Math.random().toString(36).slice(2, 6).toUpperCase();
+      const asunto = '[Amexa reservation] ' + nombreServ + ' - ' + codigo;
+      const cuerpo = 'Hi Amexa,\n\nI would like to reserve a place. I accept the privacy policy.\n\n'
+        + 'Reservation code: ' + codigo + '\n'
+        + 'Service: ' + nombreServ + '\n\n'
+        + '--- My details ---\n'
+        + 'Name: \n'
+        + 'Role: \n'
+        + 'Company: \n'
+        + 'Company website: \n'
+        + 'What our software does: \n'
+        + 'Device class, if known (I / IIa / not sure): \n'
+        + 'How I heard about Amexa: \n\n'
+        + 'Thank you.';
+      const enc = encodeURIComponent;
+      const opciones = [
+        ['Write in Gmail', 'https://mail.google.com/mail/?view=cm&fs=1&to=' + enc(correo) + '&su=' + enc(asunto) + '&body=' + enc(cuerpo), true],
+        ['Write in Outlook', 'https://outlook.live.com/mail/0/deeplink/compose?to=' + enc(correo) + '&subject=' + enc(asunto) + '&body=' + enc(cuerpo), true],
+        ['Use my email app', 'mailto:' + correo + '?subject=' + enc(asunto) + '&body=' + enc(cuerpo), false]
+      ];
+      const fila = document.createElement('div');
+      fila.className = 'correo-botones';
+      opciones.forEach(([texto, href, nueva], i) => {
+        const a = document.createElement('a');
+        a.className = i === 0 ? 'boton b-azul' : 'boton b-linea';
+        a.textContent = texto;
+        a.href = href;
+        if (nueva) { a.target = '_blank'; a.rel = 'noopener'; }
+        fila.appendChild(a);
+      });
+      const otra = document.createElement('p');
+      otra.className = 'correo-copiar';
+      otra.append('Or write to us from any email: ');
+      const dir = document.createElement('strong');
+      dir.textContent = correo;
+      const copiar = document.createElement('button');
+      copiar.type = 'button';
+      copiar.textContent = 'Copy address';
+      copiar.addEventListener('click', () => {
+        const hecho = () => { copiar.textContent = 'Copied'; setTimeout(() => { copiar.textContent = 'Copy address'; }, 2000); };
+        try { navigator.clipboard.writeText(correo).then(hecho, () => {}); } catch (e) {}
+      });
+      otra.append(dir, ' ', copiar);
+      caja.append(t, fila, otra);
       zona.appendChild(caja);
     }
   };

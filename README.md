@@ -3,7 +3,9 @@
 <h3 align="center">Diagnóstico regulatorio MDR con IA para startups de software sanitario</h3>
 
 <p align="center">
-  <a href="mailto:dsegadovizcaino@gmail.com?subject=Reserva%20de%20diagn%C3%B3stico%20MDR">Reservar un diagnóstico</a>
+  <a href="https://dsegadovizcaino-crypto.github.io/amexa/"><strong>Ver la web</strong></a> ·
+  <a href="https://dsegadovizcaino-crypto.github.io/amexa/start.html?service=diagnosis">Probar el diagnóstico gratis</a> ·
+  <a href="https://dsegadovizcaino-crypto.github.io/amexa/#pricing">Precios</a>
 </p>
 
 ---
@@ -76,4 +78,4 @@ Piloto. Estamos reservando plazas para los primeros diagnósticos, gratis y sin 
 
 ## Contacto
 
-[dsegadovizcaino@gmail.com](mailto:dsegadovizcaino@gmail.com)
+[amexa.mdr@gmail.com](mailto:amexa.mdr@gmail.com)
