@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Get started · Amexa</title>
-<meta name="description" content="Upload your medical software documentation to Amexa. Free MDR diagnosis, SaMD packages and monthly or annual plans.">
+<title>Reserve your place · Amexa</title>
+<meta name="description" content="Reserve your place with Amexa. Free MDR diagnosis, SaMD packages and monthly or annual plans, starting in January 2027.">
 <meta name="robots" content="noindex">
 <link rel="icon" type="image/png" href="img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -76,8 +76,8 @@ p{margin:0}
 
 <main class="env">
   <div class="cabecera">
-    <h1>Upload your documents.</h1>
-    <p>Three short steps. Amexa does the heavy reading and our regulatory professional reviews every result before it reaches you.</p>
+    <h1>Reserve your place.</h1>
+    <p>We start the first diagnoses, packages and plans in January 2027. Reserve your place now in one minute: it is free and does not commit you to anything. We will contact you in January to start.</p>
     <div class="aviso" id="pagado" role="status"><strong>Payment received. Thank you.</strong> Now upload your documents so we can start. You will also receive a receipt from Stripe by email.</div>
   </div>
 
@@ -86,29 +86,29 @@ p{margin:0}
     <h2 id="p1">What do you need?</h2>
     <div class="opciones" role="radiogroup" aria-labelledby="p1">
       <label class="opcion"><input type="radio" name="servicio" value="diagnosis"><div><strong>Free MDR diagnosis</strong><span>Class, requirements and gaps. Free, no commitment.</span></div></label>
-      <label class="opcion"><input type="radio" name="servicio" value="package-class-i"><div><strong>Class I SaMD package</strong><span>Technical file. We send a quote after reviewing your documents.</span></div></label>
-      <label class="opcion"><input type="radio" name="servicio" value="package-class-iia"><div><strong>Class IIa SaMD package</strong><span>Technical file. We send a quote after reviewing your documents.</span></div></label>
-      <label class="opcion"><input type="radio" name="servicio" value="plan"><div><strong>Monthly or annual plan</strong><span>Already paid, or want to start a plan.</span></div></label>
+      <label class="opcion"><input type="radio" name="servicio" value="package-class-i"><div><strong>Class I SaMD package</strong><span>Technical file. Quote once we start.</span></div></label>
+      <label class="opcion"><input type="radio" name="servicio" value="package-class-iia"><div><strong>Class IIa SaMD package</strong><span>Technical file. Quote once we start.</span></div></label>
+      <label class="opcion"><input type="radio" name="servicio" value="plan"><div><strong>Monthly or annual plan</strong><span>Essential, Growth or Audit Ready.</span></div></label>
     </div>
   </section>
 
   <section class="paso" aria-labelledby="p2">
     <div class="num">Step 2</div>
-    <h2 id="p2">Before you upload</h2>
+    <h2 id="p2">Before you reserve</h2>
     <ul class="terminos">
-      <li><svg><use href="#check"/></svg>We use your documents only to prepare your result, and we never share them.</li>
-      <li><svg><use href="#check"/></svg>Your files are stored in the EU and are not used to train AI models.</li>
-      <li><svg><use href="#check"/></svg>We delete your documents within 90 days of delivering your result.</li>
-      <li><svg><use href="#check"/></svg>Please remove any patient data. We don't need it.</li>
+      <li><svg><use href="#check"/></svg>Reserving is free and does not commit you to buy anything.</li>
+      <li><svg><use href="#check"/></svg>We contact you in January 2027 to start, in the order reservations arrive.</li>
+      <li><svg><use href="#check"/></svg>You only send documents when we start, after accepting our confidentiality terms.</li>
+      <li><svg><use href="#check"/></svg>We use your details only to contact you about Amexa.</li>
     </ul>
-    <label class="acepto"><input type="checkbox" id="acepto"><span>I accept the <a href="legal.html#confidentiality" target="_blank" rel="noopener">confidentiality terms</a>, the <a href="legal.html#terms" target="_blank" rel="noopener">terms of service</a> and the <a href="legal.html#privacy" target="_blank" rel="noopener">privacy policy</a>.</span></label>
+    <label class="acepto"><input type="checkbox" id="acepto"><span>I accept the <a href="legal.html#privacy" target="_blank" rel="noopener">privacy policy</a>.</span></label>
   </section>
 
   <section class="paso" aria-labelledby="p3">
     <div class="num">Step 3</div>
-    <h2 id="p3">Upload your files</h2>
-    <p class="ayuda">Product description, intended purpose, architecture, tests, instructions for use, risk management: whatever you already have. PDF or Word, up to 10 MB per file.</p>
-    <div class="bloqueado" id="bloqueado">Choose what you need and accept the terms to see the upload form.</div>
+    <h2 id="p3">Leave your details</h2>
+    <p class="ayuda">Your name, company, email and a couple of lines about what your software does. No documents needed yet.</p>
+    <div class="bloqueado" id="bloqueado">Choose what you need and accept the privacy policy to see the reservation form.</div>
     <div class="zona-form" id="zona-form" hidden></div>
   </section>
 </main>
@@ -158,12 +158,12 @@ p{margin:0}
     pintado = clave;
     zona.textContent = '';
     if (cfg.tallyFormId) {
-      const q = new URLSearchParams({alignLeft: '1', hideTitle: '1', transparentBackground: '1', dynamicHeight: '1', service: servicio, paid: params.get('paid') === '1' ? 'yes' : 'no', terms: 'accepted'});
+      const q = new URLSearchParams({alignLeft: '1', hideTitle: '1', transparentBackground: '1', dynamicHeight: '1', service: servicio, paid: params.get('paid') === '1' ? 'yes' : 'no', privacy: 'accepted'});
       const f = document.createElement('iframe');
       const url = 'https://tally.so/embed/' + encodeURIComponent(cfg.tallyFormId) + '?' + q.toString();
       f.setAttribute('data-tally-src', url);
       f.src = url;
-      f.title = 'Upload your documents';
+      f.title = 'Reserve your place';
       f.loading = 'lazy';
       zona.appendChild(f);
       if (!document.getElementById('tally-js')) {
@@ -176,12 +176,12 @@ p{margin:0}
       const caja = document.createElement('div');
       caja.className = 'correo-alt';
       const t = document.createElement('p');
-      t.textContent = 'Our upload form is being set up. Meanwhile, send your documents by email and we will confirm receipt the same day.';
+      t.textContent = 'Send us a short email with your details and we will confirm your reservation the same day.';
       const a = document.createElement('a');
       a.className = 'boton b-azul';
-      a.textContent = 'Send my documents by email';
-      const asunto = 'Amexa - ' + servicio;
-      const cuerpo = 'Hi,\n\nI accept the Amexa confidentiality terms, terms of service and privacy policy.\n\nService: ' + servicio + '\nCompany: \nWhat the software does: \n\nDocuments attached.';
+      a.textContent = 'Reserve by email';
+      const asunto = 'Amexa reservation - ' + servicio;
+      const cuerpo = 'Hi,\n\nI would like to reserve a place with Amexa. I accept the privacy policy.\n\nService: ' + servicio + '\nName: \nCompany: \nWhat our software does: \n\nThank you.';
       a.href = 'mailto:' + (cfg.email || '') + '?subject=' + encodeURIComponent(asunto) + '&body=' + encodeURIComponent(cuerpo);
       caja.append(t, a);
       zona.appendChild(caja);
