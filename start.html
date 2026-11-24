@@ -54,17 +54,29 @@ p{margin:0}
 .bloqueado{padding:22px;border:1px dashed var(--linea);border-radius:10px;color:var(--suave);font-size:15px;margin-top:18px;text-align:center}
 .zona-form{margin-top:18px}
 .zona-form iframe{width:100%;border:0;min-height:520px}
-.correo-alt{margin-top:18px;padding:20px;border-radius:10px;background:var(--papel-2);font-size:15px}
-.correo-alt .boton{margin-top:14px}
+.reserva{margin-top:4px}
+.rejilla{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.campo{display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:500}
+.campo.ancho{grid-column:1/-1}
+.campo input,.campo select,.campo textarea{font:15px/1.4 var(--sans);color:var(--tinta);padding:11px 12px;border:1px solid var(--linea);border-radius:8px;background:#fff;width:100%}
+.campo textarea{resize:vertical}
+.campo input:focus,.campo select:focus,.campo textarea:focus{outline:2px solid var(--azul);outline-offset:-1px;border-color:var(--azul)}
+.trampa{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.pie-form{display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin-top:20px}
+.pie-form .boton:disabled{opacity:.7;cursor:wait}
+.estado{font-size:14px;color:var(--suave)}
+.estado.error{color:#A4342A}
+.estado a{color:#A4342A;font-weight:600}
+.nota-form{margin-top:10px;font-size:13.5px;color:var(--suave)}
+.reserva-ok{padding:24px;border-radius:12px;background:#E9F6EE;border:1px solid #BFE3CB}
+.reserva-ok h3{font-family:var(--serif);font-weight:400;font-size:26px;margin:0 0 8px}
+.reserva-ok p{font-size:15px;margin-top:6px}
+.reserva-ok .codigo{font-size:16px}
 .b-linea{background:#fff;color:var(--tinta);border:1px solid var(--linea)}
-.correo-botones{display:flex;flex-wrap:wrap;gap:10px}
-.correo-copiar{margin-top:16px;font-size:14px;color:var(--suave)}
-.correo-copiar strong{color:var(--tinta);font-weight:600}
-.correo-copiar button{margin-left:6px;padding:4px 10px;border:1px solid var(--linea);border-radius:6px;background:#fff;font:500 13px/1.2 var(--sans);cursor:pointer}
 .pie{padding:32px 0 56px;font-size:13.5px;color:var(--suave);text-align:center}
 .pie a{color:var(--tinta)}
 [hidden]{display:none!important}
-@media (max-width:640px){.opciones{grid-template-columns:minmax(0,1fr)}.paso{padding:22px 18px}}
+@media (max-width:640px){.opciones,.rejilla{grid-template-columns:minmax(0,1fr)}.paso{padding:22px 18px}}
 </style>
 </head>
 <body>
@@ -145,6 +157,171 @@ p{margin:0}
     if (nombres[plan]) info.textContent = nombres[plan] + ' plan, ' + (periodo === 'annual' ? 'annual' : 'monthly') + '.';
   }
 
+  const nombreServicio = (servicio) => {
+    const nombres = {
+      'diagnosis': 'Free MDR diagnosis',
+      'package-class-i': 'Class I SaMD package',
+      'package-class-iia': 'Class IIa SaMD package',
+      'plan': 'Monthly or annual plan'
+    };
+    if (servicio.startsWith('plan-')) {
+      const [, pl, pe] = servicio.split('-');
+      const np = {essential: 'Essential', growth: 'Growth', audit: 'Audit Ready'};
+      return (np[pl] || pl) + ' plan, ' + (pe === 'annual' ? 'annual' : 'monthly');
+    }
+    return nombres[servicio] || servicio;
+  };
+
+  const nuevoCodigo = () => {
+    const d = new Date();
+    const letras = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+    let r = '';
+    const az = new Uint32Array(4);
+    (window.crypto || {getRandomValues: (a) => a.map(() => Math.floor(Math.random() * 1e9))}).getRandomValues(az);
+    az.forEach((n) => { r += letras[n % letras.length]; });
+    return 'AMX-' + String(d.getFullYear()).slice(2) + String(d.getMonth() + 1).padStart(2, '0') + String(d.getDate()).padStart(2, '0') + '-' + r;
+  };
+
+  const campo = (etiqueta, nombre, tipo, opciones) => {
+    const l = document.createElement('label');
+    l.className = 'campo' + (opciones.ancho ? ' ancho' : '');
+    const t = document.createElement('span');
+    t.textContent = etiqueta + (opciones.req ? '' : ' (optional)');
+    let c;
+    if (tipo === 'textarea') { c = document.createElement('textarea'); c.rows = 3; }
+    else if (tipo === 'select') {
+      c = document.createElement('select');
+      opciones.valores.forEach((v, i) => { const o = document.createElement('option'); o.value = i === 0 ? '' : v; o.textContent = v; c.appendChild(o); });
+    } else { c = document.createElement('input'); c.type = tipo; }
+    c.name = nombre;
+    if (opciones.req) c.required = true;
+    if (opciones.auto) c.autocomplete = opciones.auto;
+    if (opciones.max) c.maxLength = opciones.max;
+    l.append(t, c);
+    return l;
+  };
+
+  const formularioReserva = (servicio) => {
+    const servNombre = nombreServicio(servicio);
+    const correo = cfg.email || '';
+    const f = document.createElement('form');
+    f.className = 'reserva';
+    f.noValidate = false;
+    const rejilla = document.createElement('div');
+    rejilla.className = 'rejilla';
+    rejilla.append(
+      campo('Your name', 'nombre', 'text', {req: true, auto: 'name', max: 120}),
+      campo('Work email', 'email', 'email', {req: true, auto: 'email', max: 160}),
+      campo('Company', 'empresa', 'text', {req: true, auto: 'organization', max: 160}),
+      campo('Your role', 'cargo', 'text', {auto: 'organization-title', max: 120}),
+      campo('Company website', 'web', 'text', {auto: 'url', max: 200}),
+      campo('Device class, if known', 'clase', 'select', {valores: ['Choose…', 'Class I', 'Class IIa', 'Not sure yet']}),
+      campo('What does your software do?', 'software', 'textarea', {req: true, ancho: true, max: 1500}),
+      campo('How did you hear about Amexa?', 'origen', 'select', {ancho: true, valores: ['Choose…', 'LinkedIn', 'Google', 'Someone recommended you', 'Other']})
+    );
+    const trampa = document.createElement('input');
+    trampa.type = 'text'; trampa.name = '_honey'; trampa.tabIndex = -1; trampa.autocomplete = 'off';
+    trampa.className = 'trampa'; trampa.setAttribute('aria-hidden', 'true');
+    const enviar = document.createElement('button');
+    enviar.type = 'submit';
+    enviar.className = 'boton b-azul';
+    enviar.textContent = 'Reserve my place';
+    const estado = document.createElement('p');
+    estado.className = 'estado';
+    estado.setAttribute('role', 'status');
+    const pieForm = document.createElement('div');
+    pieForm.className = 'pie-form';
+    pieForm.append(enviar, estado);
+    const nota = document.createElement('p');
+    nota.className = 'nota-form';
+    nota.textContent = 'Free and without commitment. You will receive a confirmation by email.';
+    f.append(rejilla, trampa, pieForm, nota);
+
+    f.addEventListener('submit', async (ev) => {
+      ev.preventDefault();
+      if (!f.reportValidity()) return;
+      const d = Object.fromEntries(new FormData(f).entries());
+      if (d._honey) return;
+      const codigo = nuevoCodigo();
+      const fecha = new Date().toLocaleString('es-ES', {timeZone: 'Europe/Madrid', dateStyle: 'medium', timeStyle: 'short'});
+      const datos = {
+        'Código de reserva': codigo,
+        'Servicio': servNombre,
+        'Nombre': d.nombre,
+        'Email': d.email,
+        'Empresa': d.empresa,
+        'Cargo': d.cargo || '-',
+        'Web': d.web || '-',
+        'Qué hace su software': d.software,
+        'Clase del dispositivo': d.clase || 'No lo indica',
+        'Cómo nos conoció': d.origen || 'No lo indica',
+        'Privacidad': 'Aceptada',
+        'Fecha (hora de España)': fecha,
+        _subject: 'Nueva reserva Amexa · ' + d.empresa + ' · ' + servNombre + ' · ' + codigo,
+        _replyto: d.email,
+        _template: 'table',
+        _captcha: 'false',
+        _autoresponse: 'Hi ' + d.nombre + ',\n\n'
+          + 'Thank you for reserving your place with Amexa. Your reservation is confirmed.\n\n'
+          + 'Reservation code: ' + codigo + '\n'
+          + 'Service: ' + servNombre + '\n\n'
+          + 'What happens next:\n'
+          + '1. Your place is saved, in the order your reservation arrived.\n'
+          + '2. In January 2027 we will contact you to start and send you our confidentiality terms.\n'
+          + '3. You only share documents after accepting those terms. Nothing is needed from you before then.\n\n'
+          + 'Reserving is free and does not commit you to buy anything. If you have any questions, write to ' + correo + '.\n\n'
+          + 'Best regards,\nDaniel Segado\nAmexa · MDR documentation for medical software'
+      };
+      enviar.disabled = true;
+      enviar.textContent = 'Sending…';
+      estado.textContent = '';
+      try {
+        if (location.protocol === 'file:') throw new Error('local-file');
+        const ctrl = new AbortController();
+        const reloj = setTimeout(() => ctrl.abort(), 25000);
+        const r = await fetch('https://formsubmit.co/ajax/' + encodeURIComponent(correo), {
+          method: 'POST',
+          signal: ctrl.signal,
+          headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+          body: JSON.stringify(datos)
+        });
+        clearTimeout(reloj);
+        const j = await r.json().catch(() => ({}));
+        if (!r.ok || String(j.success) === 'false') throw new Error(j.message || 'error');
+        const ok = document.createElement('div');
+        ok.className = 'reserva-ok';
+        const h = document.createElement('h3');
+        h.textContent = 'Your place is reserved.';
+        const p1 = document.createElement('p');
+        p1.textContent = 'Thank you, ' + d.nombre + '. We have saved your reservation for: ' + servNombre + '.';
+        const p2 = document.createElement('p');
+        p2.className = 'codigo';
+        p2.append('Your reservation code: ');
+        const b = document.createElement('strong'); b.textContent = codigo; p2.appendChild(b);
+        const p3 = document.createElement('p');
+        p3.textContent = 'We have sent a confirmation to ' + d.email + '. We will contact you in January 2027 to start.';
+        ok.append(h, p1, p2, p3);
+        f.replaceWith(ok);
+        ok.scrollIntoView({behavior: 'smooth', block: 'center'});
+      } catch (e) {
+        enviar.disabled = false;
+        enviar.textContent = 'Reserve my place';
+        estado.textContent = '';
+        const msg = String((e && e.message) || '');
+        console.warn('Amexa reservation error:', msg);
+        if (msg === 'local-file') estado.append('This page is opened from a file on your computer, so the form cannot send. Open the live website to reserve, or write to us at ');
+        else if (/activat/i.test(msg)) estado.append('The reservation form is being activated. Please try again in a few minutes, or write to us at ');
+        else estado.append('We could not send your reservation. Please try again, or write to us at ');
+        const a = document.createElement('a');
+        a.href = 'mailto:' + correo + '?subject=' + encodeURIComponent('Amexa reservation - ' + servNombre);
+        a.textContent = correo;
+        estado.append(a, '.');
+        estado.classList.add('error');
+      }
+    });
+    return f;
+  };
+
   const servicioActual = () => {
     const r = radios.find((x) => x.checked);
     if (!r) return '';
@@ -178,69 +355,7 @@ p{margin:0}
         document.body.appendChild(s);
       } else if (window.Tally) window.Tally.loadEmbeds();
     } else {
-      const caja = document.createElement('div');
-      caja.className = 'correo-alt';
-      const t = document.createElement('p');
-      t.textContent = 'Send us a short email with your details and we will confirm your reservation the same day. Choose how you want to write it:';
-      const correo = cfg.email || '';
-      const nombresServ = {
-        'diagnosis': 'Free MDR diagnosis',
-        'package-class-i': 'Class I SaMD package',
-        'package-class-iia': 'Class IIa SaMD package',
-        'plan': 'Monthly or annual plan'
-      };
-      let nombreServ = nombresServ[servicio] || servicio;
-      if (servicio.startsWith('plan-')) {
-        const [, pl, pe] = servicio.split('-');
-        const np = {essential: 'Essential', growth: 'Growth', audit: 'Audit Ready'};
-        nombreServ = (np[pl] || pl) + ' plan, ' + (pe === 'annual' ? 'annual' : 'monthly');
-      }
-      const hoy = new Date();
-      const codigo = 'AMX-' + String(hoy.getFullYear()).slice(2) + String(hoy.getMonth() + 1).padStart(2, '0') + String(hoy.getDate()).padStart(2, '0') + '-' + Math.random().toString(36).slice(2, 6).toUpperCase();
-      const asunto = '[Amexa reservation] ' + nombreServ + ' - ' + codigo;
-      const cuerpo = 'Hi Amexa,\n\nI would like to reserve a place. I accept the privacy policy.\n\n'
-        + 'Reservation code: ' + codigo + '\n'
-        + 'Service: ' + nombreServ + '\n\n'
-        + '--- My details ---\n'
-        + 'Name: \n'
-        + 'Role: \n'
-        + 'Company: \n'
-        + 'Company website: \n'
-        + 'What our software does: \n'
-        + 'Device class, if known (I / IIa / not sure): \n'
-        + 'How I heard about Amexa: \n\n'
-        + 'Thank you.';
-      const enc = encodeURIComponent;
-      const opciones = [
-        ['Write in Gmail', 'https://mail.google.com/mail/?view=cm&fs=1&to=' + enc(correo) + '&su=' + enc(asunto) + '&body=' + enc(cuerpo), true],
-        ['Write in Outlook', 'https://outlook.live.com/mail/0/deeplink/compose?to=' + enc(correo) + '&subject=' + enc(asunto) + '&body=' + enc(cuerpo), true],
-        ['Use my email app', 'mailto:' + correo + '?subject=' + enc(asunto) + '&body=' + enc(cuerpo), false]
-      ];
-      const fila = document.createElement('div');
-      fila.className = 'correo-botones';
-      opciones.forEach(([texto, href, nueva], i) => {
-        const a = document.createElement('a');
-        a.className = i === 0 ? 'boton b-azul' : 'boton b-linea';
-        a.textContent = texto;
-        a.href = href;
-        if (nueva) { a.target = '_blank'; a.rel = 'noopener'; }
-        fila.appendChild(a);
-      });
-      const otra = document.createElement('p');
-      otra.className = 'correo-copiar';
-      otra.append('Or write to us from any email: ');
-      const dir = document.createElement('strong');
-      dir.textContent = correo;
-      const copiar = document.createElement('button');
-      copiar.type = 'button';
-      copiar.textContent = 'Copy address';
-      copiar.addEventListener('click', () => {
-        const hecho = () => { copiar.textContent = 'Copied'; setTimeout(() => { copiar.textContent = 'Copy address'; }, 2000); };
-        try { navigator.clipboard.writeText(correo).then(hecho, () => {}); } catch (e) {}
-      });
-      otra.append(dir, ' ', copiar);
-      caja.append(t, fila, otra);
-      zona.appendChild(caja);
+      zona.appendChild(formularioReserva(servicio));
     }
   };
   radios.forEach((r) => r.addEventListener('change', actualizar));
