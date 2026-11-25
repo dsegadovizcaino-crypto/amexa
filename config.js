@@ -12,6 +12,10 @@
      - web3formsKey: la "Access Key" que Web3Forms te manda por email. Si está puesta, se usa Web3Forms (recomendado).
      - formsubmitId: el código del email de activación de FormSubmit. Solo se usa si web3formsKey está vacío.
      tallyFormId: déjalo vacío. Si algún día pones un código de Tally, se usará Tally en vez de FormSubmit.
+
+  3. Google Analytics: pega en gaId tu "ID de medición" (empieza por G-, por ejemplo 'G-AB12CD34EF').
+     Mientras esté vacío, la web no mide nada ni enseña el aviso de cookies.
+     Con el ID puesto, sale un aviso de cookies y solo se mide a quien pulse "Accept" (lo exige la ley en España).
 */
 window.AMEXA = {
   email: 'amexa.mdr@gmail.com',
@@ -21,6 +25,8 @@ window.AMEXA = {
   formsubmitId: 'fa6809fd88c8b83139047f158ff03f0f',
 
   tallyFormId: '',
+
+  gaId: 'G-R160BBB3MZ',
 
   paymentsOpen: false,
 

@@ -131,10 +131,11 @@ p{margin:0}
 </main>
 
 <footer class="pie">
-  © 2026 Amexa · <a href="legal.html">Terms and privacy</a> · <a href="mailto:amexa.mdr@gmail.com">amexa.mdr@gmail.com</a>
+  © 2026 Amexa · <a href="legal.html">Terms and privacy</a> · <a href="mailto:amexa.mdr@gmail.com">amexa.mdr@gmail.com</a><span data-cookies> · <a href="#">Cookie settings</a></span>
 </footer>
 
 <script src="config.js"></script>
+<script src="analitica.js"></script>
 <script>
 {
   const cfg = window.AMEXA || {};
@@ -315,6 +316,7 @@ p{margin:0}
           : 'We have sent a confirmation to ' + d.email + '. We will contact you in January 2027 to start.';
         ok.append(h, p1, p2, p3);
         f.replaceWith(ok);
+        if (window.amexaEvento) window.amexaEvento('generate_lead', {service: servNombre});
         ok.scrollIntoView({behavior: 'smooth', block: 'center'});
       } catch (e) {
         enviar.disabled = false;
