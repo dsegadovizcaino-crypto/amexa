@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Amexa · MDR diagnosis for medical software</title>
-<meta name="description" content="Amexa reads your medical software documentation and tells you whether it is a medical device, its risk class and what is missing for CE marking. Reviewed by a regulatory professional. Free trials, SaMD packages for Class I and IIa, and monthly or annual plans.">
+<meta name="description" content="Amexa reads your medical software documentation and tells you whether it is a medical device, its risk class and what is missing for CE marking. Paid services reviewed by a regulatory professional. Free AI trial, SaMD packages for Class I and IIa, and monthly or annual plans.">
 <link rel="icon" type="image/png" href="img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -295,6 +295,7 @@ p{margin:0}
 .serv.susc ul{border-color:rgba(255,255,255,.18)}
 .serv.susc li svg{color:#6CC4EE}
 .serv.susc .pie-serv{color:#fff}
+.serv .nota-ia{margin-top:8px;font-size:12px;line-height:1.45;color:var(--suave)}
 .nota-serv{margin-top:20px;color:var(--suave);font-size:14px;text-align:center}
 .revisado{display:inline-flex;align-items:center;gap:10px;margin-top:18px;padding:10px 14px;border:1px solid var(--linea);border-radius:8px;font-size:14px;color:var(--tinta);background:#fff}
 .revisado svg{width:20px;height:20px;color:var(--azul);flex:none}
@@ -447,12 +448,12 @@ p{margin:0}
       <div class="portada-cab">
         <h1>Your medical software, ready for the <span class="mdr"><span class="oculto">M</span><svg class="m-amexa" viewBox="0 0 139.08 100" aria-hidden="true" focusable="false"><path fill="currentColor" d="M131.52 99.89 L130.43 99.97 L128.12 99.54 L126.09 98.54 L124.83 97.52 L123.80 96.23 L123.25 95.30 L122.61 93.43 L122.40 91.12 L122.39 38.66 L122.30 36.71 L122.06 35.01 L121.60 32.94 L121.09 31.36 L119.72 28.24 L118.73 26.61 L117.31 24.66 L115.09 22.38 L112.66 20.41 L110.11 18.94 L108.28 18.15 L106.45 17.52 L104.26 16.97 L100.12 16.60 L95.86 16.98 L93.79 17.53 L92.21 18.05 L90.14 18.94 L87.59 20.40 L84.66 22.84 L82.39 25.39 L80.40 28.48 L78.95 31.96 L78.46 33.72 L78.02 36.10 L77.87 38.66 L77.85 91.61 L77.71 93.19 L77.18 94.89 L76.36 96.35 L75.29 97.65 L74.16 98.54 L73.22 99.08 L72.25 99.50 L71.28 99.75 L69.45 100.00 L66.84 99.52 L64.95 98.56 L63.49 97.37 L62.42 95.99 L61.96 95.13 L61.42 93.55 L61.22 91.00 L61.21 38.78 L61.09 36.83 L60.77 34.40 L60.25 32.45 L59.35 29.99 L57.83 27.10 L56.39 25.03 L54.48 22.91 L51.44 20.39 L48.90 18.94 L46.81 18.04 L45.23 17.53 L43.04 16.96 L38.90 16.60 L34.76 16.97 L32.57 17.54 L30.99 18.05 L28.92 18.95 L26.39 20.40 L24.95 21.50 L23.44 22.85 L21.62 24.81 L20.08 26.97 L18.65 29.65 L17.59 32.45 L17.13 34.28 L16.73 36.71 L16.65 38.05 L16.63 91.00 L16.47 93.43 L15.90 95.13 L15.42 95.99 L14.44 97.28 L12.97 98.54 L11.15 99.47 L8.71 99.96 L7.98 99.97 L5.63 99.52 L3.72 98.59 L2.50 97.57 L1.62 96.60 L1.16 95.87 L0.65 94.89 L0.22 93.55 L0.04 92.21 L0.03 37.69 L0.14 35.37 L0.62 31.84 L1.57 27.83 L2.63 24.80 L4.09 21.52 L6.48 17.36 L8.42 14.68 L11.50 11.27 L14.19 8.80 L18.23 5.92 L21.86 3.92 L25.07 2.51 L26.61 1.98 L28.31 1.45 L30.62 0.92 L32.69 0.53 L35.25 0.22 L39.02 0.00 L42.43 0.20 L44.86 0.50 L49.37 1.42 L53.67 2.88 L57.89 4.88 L59.59 5.88 L63.06 8.35 L66.35 11.27 L69.21 14.47 L69.45 14.58 L69.82 14.44 L72.74 11.24 L75.41 8.80 L78.70 6.39 L81.26 4.83 L85.15 2.97 L87.83 1.97 L89.78 1.39 L93.79 0.56 L96.71 0.19 L100.37 0.01 L103.90 0.23 L106.33 0.53 L108.46 0.93 L111.04 1.54 L114.87 2.88 L118.31 4.46 L121.54 6.38 L124.91 8.84 L127.51 11.24 L130.34 14.32 L132.80 17.72 L134.72 21.01 L136.22 24.30 L136.72 25.64 L137.61 28.29 L138.21 30.87 L138.87 35.25 L139.08 39.51 L139.03 92.09 L138.80 93.55 L138.24 95.26 L137.61 96.33 L136.64 97.49 L135.38 98.54 L134.32 99.14 L133.23 99.57 L131.52 99.89Z"/></svg>DR</span>.</h1>
         <div class="lado">
-          <p>Amexa reads your software's technical documentation and tells you whether it is a medical device, which risk class it falls into and what is missing for CE marking. Every answer is cited from your own documents and reviewed by a regulatory professional.</p>
+          <p>Amexa reads your software's technical documentation and tells you whether it is a medical device, which risk class it falls into and what is missing for CE marking. Every answer is cited from your own documents, and our paid services are reviewed by a regulatory professional.</p>
           <div class="acciones">
             <a class="boton b-negro" href="start.html?service=diagnosis">Reserve your free trial <svg class="flecha"><use href="#flecha"/></svg></a>
             <a class="boton b-borde" href="#pricing">See pricing</a>
           </div>
-          <small>Reserve your slot online, no call needed. Free, no-commitment diagnoses start in January 2027.</small>
+          <small>Reserve your slot online, no call needed. Free, no-commitment AI diagnoses start in January 2027.</small>
         </div>
       </div>
 
@@ -667,7 +668,7 @@ p{margin:0}
             <div class="rot">How Amexa solves it</div>
             <p>Amexa does the reading and the first pass. Then a regulatory affairs professional with more than 7 years of experience in the medical device industry reviews every row: accepts it, corrects it or rejects it, and confirms the class with a written reason.</p>
             <ul>
-              <li><svg><use href="#check"/></svg>You receive a reviewed diagnosis, not a raw AI draft.</li>
+              <li><svg><use href="#check"/></svg>With our paid services, you receive a reviewed result, not a raw AI draft.</li>
               <li><svg><use href="#check"/></svg>Anything not yet reviewed is clearly marked as pending.</li>
             </ul>
           </div>
@@ -702,7 +703,7 @@ p{margin:0}
         <article class="serv gratis sube">
           <div class="tipo">Free trial</div>
           <h3>MDR diagnosis</h3>
-          <p>We analyse your documentation for free and with no commitment, so you can judge the quality before you pay anything.</p>
+          <p>Our AI analyses your documentation for free and with no commitment, so you can judge the quality before you pay anything.</p>
           <ul>
             <li><svg><use href="#check"/></svg>Qualification and risk class, from I to III</li>
             <li><svg><use href="#check"/></svg>All 23 MDR safety requirements, checked point by point</li>
@@ -710,6 +711,7 @@ p{margin:0}
             <li><svg><use href="#check"/></svg>15-minute review call</li>
           </ul>
           <div class="pie-serv">Free · starts January 2027</div>
+          <p class="nota-ia">Automated AI analysis, not reviewed by our regulatory professional. Expert review is part of our paid services.</p>
           <a class="enlace-serv" href="start.html?service=diagnosis">Reserve a free slot <svg><use href="#flecha"/></svg></a>
         </article>
         <article class="serv paq1 sube">
@@ -749,7 +751,7 @@ p{margin:0}
           <a class="enlace-serv" href="#pricing">See the plans <svg><use href="#flecha"/></svg></a>
         </article>
       </div>
-      <p class="nota-serv sube">Every deliverable is reviewed by a regulatory affairs professional with more than 7 years of experience in the medical device industry.</p>
+      <p class="nota-serv sube">Every paid deliverable is reviewed by a regulatory affairs professional with more than 7 years of experience in the medical device industry.</p>
       <p class="nota-serv otra-clase sube">Working on a Class IIb or III device? <a href="mailto:amexa.mdr@gmail.com?subject=Amexa%20-%20Class%20IIb%20or%20III%20device">Talk to us</a>. The diagnosis already covers every class.</p>
     </div>
   </section>
@@ -815,7 +817,7 @@ p{margin:0}
       <div class="pasos-compra sube">
         <div><strong>Reserve your place</strong><p>Leave your details online in one minute. Reserving is free and does not commit you to anything.</p></div>
         <div><strong>Start in January 2027</strong><p>We contact you to start. You pay by card through Stripe, accept our confidentiality terms and upload your files online.</p></div>
-        <div><strong>Receive the reviewed result</strong><p>Amexa does the heavy reading and our regulatory professional reviews every result before it reaches you.</p></div>
+        <div><strong>Receive your result</strong><p>Amexa does the heavy reading. In our paid services, our regulatory professional reviews every result before it reaches you.</p></div>
       </div>
       <p class="letra-pequena sube">Prices exclude VAT. Monthly plans can be cancelled at any time and end with the month already paid. Annual plans are paid upfront for 12 months. <a href="legal.html#terms">Full terms</a></p>
     </div>
@@ -894,7 +896,7 @@ p{margin:0}
       <div class="sello sube" aria-hidden="true"><img src="img/amexa-logo-blanco@2x.png" alt=""></div>
       <div class="sube">
         <blockquote>“AI does the reading. Experienced professionals make the call.”</blockquote>
-        <p>Amexa does the slow, repetitive work in minutes. A regulatory affairs professional with more than 7 years in the medical device industry reviews every result before it reaches you, and regulatory decisions are always signed by a qualified professional.</p>
+        <p>Amexa does the slow, repetitive work in minutes. A regulatory affairs professional with more than 7 years in the medical device industry reviews every paid result before it reaches you, and regulatory decisions are always signed by a qualified professional.</p>
         <span class="revisado"><svg><use href="#experto"/></svg>Reviewed by a professional with 7+ years in the medical device industry</span>
       </div>
     </div>
@@ -940,12 +942,12 @@ p{margin:0}
     <div class="env">
       <div class="intro sube"><h2>Frequently asked questions</h2></div>
       <div class="faq">
-        <details><summary>Is it just an AI draft?<span aria-hidden="true">+</span></summary><p>No. Amexa does the first pass and a regulatory affairs professional with more than 7 years of experience in the medical device industry reviews every result before you receive it.</p></details>
+        <details><summary>Is it just an AI draft?<span aria-hidden="true">+</span></summary><p>Not in our paid services. Amexa does the first pass and a regulatory affairs professional with more than 7 years of experience in the medical device industry reviews every result before you receive it. The free trial is an automated AI analysis, so you can see how Amexa works before you pay anything.</p></details>
         <details><summary>Can you prepare the full technical file?<span aria-hidden="true">+</span></summary><p>Yes. Besides the diagnosis, we offer two SaMD packages that prepare the MDR technical file: one for Class I software and one for Class IIa software. We give you the price once we have seen your case. For Class IIb or III, write to us and we will tell you how we can help.</p></details>
         <details><summary>Can I hire you monthly or annually?<span aria-hidden="true">+</span></summary><p>Yes. With a monthly or annual plan we review every new version or feature of your product, keep your technical file up to date and track your gaps until they are closed.</p></details>
         <details><summary>Do I have to talk to someone before I start?<span aria-hidden="true">+</span></summary><p>No. You can reserve your place online now, and in January 2027 you pay and upload your documents yourself. For the SaMD packages, we send you a quote once we have reviewed your documents. If you prefer a call, we are happy to have one.</p></details>
         <details><summary>How do I pay?<span aria-hidden="true">+</span></summary><p>Reserving is free. Payments open in January 2027, when we start: by card through Stripe. Monthly plans renew each month until you cancel. Annual plans are paid once for 12 months. Prices exclude VAT and you receive an invoice for every payment.</p></details>
-        <details><summary>Is the trial really free?<span aria-hidden="true">+</span></summary><p>Yes. We offer free, no-commitment trials so you can see the quality of our work before you pay anything. Reserve yours now; the first diagnoses start in January 2027.</p></details>
+        <details><summary>Is the trial really free?<span aria-hidden="true">+</span></summary><p>Yes. We offer free, no-commitment trials so you can see the quality of our work before you pay anything. The free trial is an automated AI analysis with a short call; expert review is part of our paid services. Reserve yours now; the first diagnoses start in January 2027.</p></details>
         <details><summary>What if my software is not a medical device?<span aria-hidden="true">+</span></summary><p>That is useful too: you get the argument in writing under MDCG 2019-11, ready for when a hospital or an investor asks.</p></details>
         <details><summary>Which documents do I need?<span aria-hidden="true">+</span></summary><p>Whatever you already have: product description and intended purpose, architecture, specifications and tests, instructions for use and risk management. If something is missing, we will tell you.</p></details>
         <details><summary>Can we meet in person?<span aria-hidden="true">+</span></summary><p>Yes. If you want to move forward after the diagnosis, we can meet you in person to close everything.</p></details>
