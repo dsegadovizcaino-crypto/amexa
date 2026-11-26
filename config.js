@@ -31,6 +31,7 @@ window.AMEXA = {
   paymentsOpen: false,
 
   stripe: {
+    'diagnosis-expert': '',
     'essential-monthly': '',
     'essential-annual': '',
     'growth-monthly': '',

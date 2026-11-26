@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Reserve your place · Amexa</title>
-<meta name="description" content="Reserve your place with Amexa. Free MDR diagnosis, SaMD packages and monthly or annual plans, starting in January 2027.">
+<meta name="description" content="Reserve your place with Amexa. Free AI or expert MDR diagnosis, SaMD packages and monthly or annual plans, starting in January 2027.">
 <meta name="robots" content="noindex">
 <link rel="icon" type="image/png" href="img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -103,6 +103,7 @@ p{margin:0}
     <h2 id="p1">What do you need?</h2>
     <div class="opciones" role="radiogroup" aria-labelledby="p1">
       <label class="opcion"><input type="radio" name="servicio" value="diagnosis"><div><strong>Free MDR diagnosis</strong><span>Class, requirements and gaps. Free, no commitment. Automated AI analysis.</span></div></label>
+      <label class="opcion"><input type="radio" name="servicio" value="diagnosis-expert"><div><strong>Expert MDR diagnosis</strong><span>The same diagnosis, reviewed by our regulatory professional. €249, credited if you then hire a SaMD package. You pay in January.</span></div></label>
       <label class="opcion"><input type="radio" name="servicio" value="package-class-i"><div><strong>Class I SaMD package</strong><span>Technical file. Quote once we start.</span></div></label>
       <label class="opcion"><input type="radio" name="servicio" value="package-class-iia"><div><strong>Class IIa SaMD package</strong><span>Technical file. Quote once we start.</span></div></label>
       <label class="opcion"><input type="radio" name="servicio" value="plan"><div><strong>Monthly or annual plan</strong><span>Essential, Growth or Audit Ready.</span></div></label>
@@ -161,6 +162,7 @@ p{margin:0}
   const nombreServicio = (servicio) => {
     const nombres = {
       'diagnosis': 'Free MDR diagnosis',
+      'diagnosis-expert': 'Expert MDR diagnosis (€249)',
       'package-class-i': 'Class I SaMD package',
       'package-class-iia': 'Class IIa SaMD package',
       'plan': 'Monthly or annual plan'

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Amexa · MDR diagnosis for medical software</title>
-<meta name="description" content="Amexa reads your medical software documentation and tells you whether it is a medical device, its risk class and what is missing for CE marking. Paid services reviewed by a regulatory professional. Free AI trial, SaMD packages for Class I and IIa, and monthly or annual plans.">
+<meta name="description" content="Amexa reads your medical software documentation and tells you whether it is a medical device, its risk class and what is missing for CE marking. Free AI diagnosis or expert-reviewed diagnosis, SaMD packages for Class I and IIa, and monthly or annual plans.">
 <link rel="icon" type="image/png" href="img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -295,6 +295,10 @@ p{margin:0}
 .serv.susc ul{border-color:rgba(255,255,255,.18)}
 .serv.susc li svg{color:#6CC4EE}
 .serv.susc .pie-serv{color:#fff}
+.serv [hidden]{display:none!important}
+.modo-diag{display:flex;padding:3px;border:1px solid #B9DDEF;border-radius:9px;background:rgba(255,255,255,.55);margin-top:12px}
+.modo-diag button{flex:1;font:600 12.5px/1 var(--sans);border:0;background:transparent;color:var(--suave);padding:9px 6px;border-radius:6px;cursor:pointer;white-space:nowrap}
+.modo-diag button[aria-pressed="true"]{background:#fff;color:var(--tinta);box-shadow:0 1px 3px rgba(8,60,72,.15)}
 .serv .nota-ia{margin-top:8px;font-size:12px;line-height:1.45;color:var(--suave)}
 .nota-serv{margin-top:20px;color:var(--suave);font-size:14px;text-align:center}
 .revisado{display:inline-flex;align-items:center;gap:10px;margin-top:18px;padding:10px 14px;border:1px solid var(--linea);border-radius:8px;font-size:14px;color:var(--tinta);background:#fff}
@@ -700,19 +704,37 @@ p{margin:0}
         <p>Reserve your free trial today. From January 2027, choose a SaMD package for your technical file, or work with us every month.</p>
       </div>
       <div class="servicios">
-        <article class="serv gratis sube">
-          <div class="tipo">Free trial</div>
-          <h3>MDR diagnosis</h3>
-          <p>Our AI analyses your documentation for free and with no commitment, so you can judge the quality before you pay anything.</p>
-          <ul>
-            <li><svg><use href="#check"/></svg>Qualification and risk class, from I to III</li>
-            <li><svg><use href="#check"/></svg>All 23 MDR safety requirements, checked point by point</li>
-            <li><svg><use href="#check"/></svg>Prioritised gap plan</li>
-            <li><svg><use href="#check"/></svg>15-minute review call</li>
-          </ul>
-          <div class="pie-serv">Free · starts January 2027</div>
-          <p class="nota-ia">Automated AI analysis, not reviewed by our regulatory professional. Expert review is part of our paid services.</p>
-          <a class="enlace-serv" href="start.html?service=diagnosis">Reserve a free slot <svg><use href="#flecha"/></svg></a>
+        <article class="serv gratis sube" data-modo="ia">
+          <div class="tipo">MDR diagnosis</div>
+          <h3>Diagnosis</h3>
+          <div class="modo-diag" role="group" aria-label="Type of diagnosis">
+            <button type="button" data-modo-btn="ia" aria-pressed="true">AI · Free</button>
+            <button type="button" data-modo-btn="experto" aria-pressed="false">Expert · €249</button>
+          </div>
+          <div class="ver-ia">
+            <p>Our AI analyses your documentation for free and with no commitment, so you can judge the quality before you pay anything.</p>
+            <ul>
+              <li><svg><use href="#check"/></svg>Qualification and risk class, from I to III</li>
+              <li><svg><use href="#check"/></svg>All 23 MDR safety requirements, checked point by point</li>
+              <li><svg><use href="#check"/></svg>Prioritised gap plan</li>
+              <li><svg><use href="#check"/></svg>15-minute review call</li>
+            </ul>
+          </div>
+          <div class="ver-experto" hidden>
+            <p>The same analysis, reviewed row by row by our regulatory professional before it reaches you.</p>
+            <ul>
+              <li><svg><use href="#check"/></svg>Everything in the AI diagnosis</li>
+              <li><svg><use href="#check"/></svg>Every row accepted, corrected or rejected by our expert</li>
+              <li><svg><use href="#check"/></svg>Risk class confirmed with a written reason</li>
+              <li><svg><use href="#check"/></svg>15-minute review call</li>
+            </ul>
+          </div>
+          <div class="pie-serv ver-ia">Free · starts January 2027</div>
+          <div class="pie-serv ver-experto" hidden>€249 · credited if you then hire a SaMD package</div>
+          <p class="nota-ia ver-ia">Automated AI analysis, not reviewed by our regulatory professional.</p>
+          <p class="nota-ia ver-experto" hidden>Reserving is free. You pay when we start, in January 2027. Price excludes VAT.</p>
+          <a class="enlace-serv ver-ia" href="start.html?service=diagnosis">Reserve a free slot <svg><use href="#flecha"/></svg></a>
+          <a class="enlace-serv ver-experto" href="start.html?service=diagnosis-expert" hidden>Reserve an expert diagnosis <svg><use href="#flecha"/></svg></a>
         </article>
         <article class="serv paq1 sube">
           <div class="tipo">SaMD package</div>
@@ -942,12 +964,12 @@ p{margin:0}
     <div class="env">
       <div class="intro sube"><h2>Frequently asked questions</h2></div>
       <div class="faq">
-        <details><summary>Is it just an AI draft?<span aria-hidden="true">+</span></summary><p>Not in our paid services. Amexa does the first pass and a regulatory affairs professional with more than 7 years of experience in the medical device industry reviews every result before you receive it. The free trial is an automated AI analysis, so you can see how Amexa works before you pay anything.</p></details>
+        <details><summary>Is it just an AI draft?<span aria-hidden="true">+</span></summary><p>Not in our paid services. Amexa does the first pass and a regulatory affairs professional with more than 7 years of experience in the medical device industry reviews every result before you receive it. The free diagnosis is an automated AI analysis, so you can see how Amexa works before you pay anything. If you want it reviewed by our expert, choose the expert diagnosis (€249).</p></details>
         <details><summary>Can you prepare the full technical file?<span aria-hidden="true">+</span></summary><p>Yes. Besides the diagnosis, we offer two SaMD packages that prepare the MDR technical file: one for Class I software and one for Class IIa software. We give you the price once we have seen your case. For Class IIb or III, write to us and we will tell you how we can help.</p></details>
         <details><summary>Can I hire you monthly or annually?<span aria-hidden="true">+</span></summary><p>Yes. With a monthly or annual plan we review every new version or feature of your product, keep your technical file up to date and track your gaps until they are closed.</p></details>
         <details><summary>Do I have to talk to someone before I start?<span aria-hidden="true">+</span></summary><p>No. You can reserve your place online now, and in January 2027 you pay and upload your documents yourself. For the SaMD packages, we send you a quote once we have reviewed your documents. If you prefer a call, we are happy to have one.</p></details>
         <details><summary>How do I pay?<span aria-hidden="true">+</span></summary><p>Reserving is free. Payments open in January 2027, when we start: by card through Stripe. Monthly plans renew each month until you cancel. Annual plans are paid once for 12 months. Prices exclude VAT and you receive an invoice for every payment.</p></details>
-        <details><summary>Is the trial really free?<span aria-hidden="true">+</span></summary><p>Yes. We offer free, no-commitment trials so you can see the quality of our work before you pay anything. The free trial is an automated AI analysis with a short call; expert review is part of our paid services. Reserve yours now; the first diagnoses start in January 2027.</p></details>
+        <details><summary>Is the trial really free?<span aria-hidden="true">+</span></summary><p>Yes. We offer free, no-commitment trials so you can see the quality of our work before you pay anything. The free trial is an automated AI analysis with a short call. If you want our regulatory professional to review it, choose the expert diagnosis for €249, credited if you then hire a SaMD package. Reserve yours now; the first diagnoses start in January 2027.</p></details>
         <details><summary>What if my software is not a medical device?<span aria-hidden="true">+</span></summary><p>That is useful too: you get the argument in writing under MDCG 2019-11, ready for when a hospital or an investor asks.</p></details>
         <details><summary>Which documents do I need?<span aria-hidden="true">+</span></summary><p>Whatever you already have: product description and intended purpose, architecture, specifications and tests, instructions for use and risk management. If something is missing, we will tell you.</p></details>
         <details><summary>Can we meet in person?<span aria-hidden="true">+</span></summary><p>Yes. If you want to move forward after the diagnosis, we can meet you in person to close everything.</p></details>
@@ -986,6 +1008,17 @@ p{margin:0}
 
 <script src="config.js"></script>
 <script src="analitica.js"></script>
+<script>
+document.querySelectorAll('[data-modo]').forEach((card) => {
+  const poner = (modo) => {
+    card.dataset.modo = modo;
+    card.querySelectorAll('[data-modo-btn]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.modoBtn === modo)));
+    card.querySelectorAll('.ver-ia').forEach((e) => { e.hidden = modo !== 'ia'; });
+    card.querySelectorAll('.ver-experto').forEach((e) => { e.hidden = modo !== 'experto'; });
+  };
+  card.querySelectorAll('[data-modo-btn]').forEach((b) => b.addEventListener('click', () => poner(b.dataset.modoBtn)));
+});
+</script>
 <script>
 {
   document.documentElement.classList.add('js');
